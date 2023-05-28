@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<PublishAot>true</PublishAot>
+	<PublishTrimmed>true</PublishTrimmed>
+	<DebuggerSupport>false</DebuggerSupport>
+	<EnableUnsafeBinaryFormatterSerialization>false</EnableUnsafeBinaryFormatterSerialization>
+	<EnableUnsafeUTF7Encoding>false</EnableUnsafeUTF7Encoding>
+	<EventSourceSupport>false</EventSourceSupport>
+	<InvariantGlobalization>true</InvariantGlobalization>
+	<MetadataUpdaterSupport>false</MetadataUpdaterSupport>
+	<UseSystemResourceKeys>true</UseSystemResourceKeys>
+  </PropertyGroup>
+
+</Project>
