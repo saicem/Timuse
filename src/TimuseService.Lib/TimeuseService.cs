@@ -1,4 +1,6 @@
-﻿using System.Runtime.InteropServices;
+﻿namespace TimuseService;
+
+using System.Runtime.InteropServices;
 using System.Text;
 
 public static class TimeuseService
