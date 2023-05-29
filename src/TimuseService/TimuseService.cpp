@@ -1,5 +1,6 @@
 ﻿#include <Windows.h>
 #include <iostream>
+#include <Shlwapi.h>
 
 void LoadHook();
 void WinEventproc(HWINEVENTHOOK, DWORD, HWND, LONG, LONG, DWORD, DWORD);
@@ -10,11 +11,17 @@ OnSwitchProc onSwitch;
 FARPROC initService;
 
 WCHAR lpPathBuffer[MAX_PATH];
-WCHAR lpCmdBuffer[44];
+WCHAR lpCmdBuffer[41];
+
+struct LANGANDCODEPAGE
+{
+	WORD wLanguage;
+	WORD wCodePage;
+} *lpTranslate;
 
 int main()
 {
-	HMODULE hLibService = LoadLibrary(L"TimeuseService.dll");
+	HMODULE hLibService = LoadLibrary(L"TimuseService.Lib.dll");
 	if (hLibService == NULL) return 1;
 
 	onSwitch = (OnSwitchProc)GetProcAddress(hLibService, "OnSwitch");
@@ -53,23 +60,29 @@ void WinEventproc(HWINEVENTHOOK hWinEventHook, DWORD event, HWND hwnd, LONG idOb
 
 	DWORD dwFileVersionInfoSize = GetFileVersionInfoSize(lpPathBuffer, nullptr);
 
+	// no version info, use file name
+	if (!dwFileVersionInfoSize) 
+	{
+		WCHAR lpFileNameBuffer[MAX_PATH];
+		wcscpy_s(lpFileNameBuffer, lpPathBuffer);
+		PathStripPath(lpFileNameBuffer);
+		onSwitch(lpFileNameBuffer, lpPathBuffer);
+		return;
+	}
+
 	BYTE* lpVersionInfoBuffer = new BYTE[dwFileVersionInfoSize];
 	GetFileVersionInfo(lpPathBuffer, NULL, dwFileVersionInfoSize, lpVersionInfoBuffer);
 
+	UINT cbTranslate;
+
+	DWORD dwDefaultLang = 0x040904E4;
+	lpTranslate = (LANGANDCODEPAGE*)&dwDefaultLang;
+	VerQueryValue(lpVersionInfoBuffer, L"\\VarFileInfo\\Translation", (LPVOID*)&lpTranslate, &cbTranslate);
+
+	swprintf_s(lpCmdBuffer, L"\\StringFileInfo\\%04x%04x\\FileDescription", lpTranslate->wLanguage, lpTranslate->wCodePage);
+
 	LPVOID lpbuffer;
-	UINT bufferLeng;
-	BOOL success = VerQueryValue(lpVersionInfoBuffer, L"\\VarFileInfo\\Translation", &lpbuffer, &bufferLeng);
-	
-	DWORD dwLang = 0x040904E4;
-	if (success) 
-	{
-		dwLang = *((LPDWORD)lpbuffer);
-		dwLang = ((dwLang & 0xffff) << 16) | (dwLang >> 16);
-	}
-
-	swprintf_s(lpCmdBuffer, L"\\\\StringFileInfo\\\\%08x\\\\FileDescription", dwLang);
-
-	success = VerQueryValue(lpVersionInfoBuffer, lpCmdBuffer, &lpbuffer, &bufferLeng);
+	auto success = VerQueryValue(lpVersionInfoBuffer, lpCmdBuffer, &lpbuffer, &cbTranslate);
 	if (!success)
 	{
 		delete[](lpVersionInfoBuffer);
