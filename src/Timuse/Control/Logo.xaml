@@ -19,7 +19,7 @@
                 <Rectangle Margin="0,12,12,0" Width="24" Height="24" Fill="{StaticResource Brush}"/>
             </StackPanel>
             <Grid>
-                <Path Data="M0,0L0,72L36,72L36,36L72,36L72,0" Fill="{StaticResource Brush}"/>
+                <Path Data="M-1,0L-1,72L36,72L36,36L72,36L72,0" Fill="{StaticResource Brush}"/>
                 <Path Fill="{StaticResource Brush}" 
               Data="M84,0L108,0L108,24L84,24M48,48l0,24l24,0l0,-24M84,36l24,0l0,36l-24,0"/>
             </Grid>
