@@ -17,7 +17,7 @@
         </Grid.ColumnDefinitions>
         <StackPanel Margin="32,64,32,32">
             <StackPanel Orientation="Horizontal">
-                <Rectangle Fill="Blue" Width="70" Height="35"/>
+                <control:Logo Width="70" Height="35"/>
                 <TextBlock Margin="16,0,0,0" Foreground="#7D87A5" Text="Timuse" FontSize="32" FontFamily="Bahnschrift Condensed"/>
             </StackPanel>
             <control:TabButton Margin="0,80,0,0" HorizontalAlignment="Center"/>
@@ -57,6 +57,7 @@
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
+                <control:Logo Margin="50" />
             </StackPanel>
         </Border>
     </Grid>
