@@ -70,8 +70,8 @@ public static class TimeuseService
         if (recordWriter is null) return;
         if (string.IsNullOrEmpty(recordingApplicationName)) return;
 
-        var timestamp = (int)(recordingApplicationFocusTime - timeStampOrigin).TotalSeconds;
-        var duration = (int)(DateTime.UtcNow - recordingApplicationFocusTime).TotalMilliseconds;
+        var timestamp = (uint)(recordingApplicationFocusTime - timeStampOrigin).TotalSeconds;
+        var duration = (uint)(DateTime.UtcNow - recordingApplicationFocusTime).TotalMilliseconds;
 
         var success = idDictionary.TryGetValue(recordingApplicationPath, out ushort id);
         if (!success)
