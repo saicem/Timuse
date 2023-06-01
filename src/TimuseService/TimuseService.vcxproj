@@ -140,6 +140,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="TimuseService.cpp" />
+    <ClCompile Include="UIAutomationFocusChangedEventHandler.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="UIAutomationFocusChangedEventHandler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
