@@ -61,9 +61,9 @@ public static class TimeuseService
     private static BinaryWriter? recordWriter;
     private static ushort currentMaxId;
 
-    private static readonly string basePath = Path.Join(Path.GetDirectoryName(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)), "Local/Timuse");
-    private static readonly string pathProcessMap = Path.Join(basePath, "map.bin");
-    private static readonly string pathRecord = Path.Join(basePath, "record.bin");
+    private static readonly string basePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Timuse");
+    private static readonly string pathProcessMap = Path.Combine(basePath, "map.bin");
+    private static readonly string pathRecord = Path.Combine(basePath, "record.bin");
 
     private static void HandleStatistics()
     {
