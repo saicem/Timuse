@@ -54,7 +54,7 @@ HRESULT InitializeApplicationListener()
 
     initService();
 
-    UIAutomationFocusChangedEventHandler* pFocusHandler = new UIAutomationFocusChangedEventHandler(onSwitch);
+    UIAutomationFocusChangedEventHandler* pFocusHandler = new UIAutomationFocusChangedEventHandler(pUIAutomation, onSwitch);
     if (!pFocusHandler)
     {
         return E_OUTOFMEMORY;

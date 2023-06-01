@@ -19,6 +19,36 @@ HRESULT UIAutomationFocusChangedEventHandler::HandleFocusChangedEvent(IUIAutomat
             _lastPid = currentPid;
         }
 
+        BSTR sClassName;
+        sender->get_CurrentClassName(&sClassName);
+
+        if (StrCmpW(sClassName, L"BrowserRootView") == 0)
+        {
+            VARIANT vBstr = { };
+            vBstr.vt = VT_BSTR;
+            vBstr.bstrVal = ADDRESSBARACCKEY;
+            IUIAutomationCondition* lpAccCondition = NULL;
+            _uiAutomation->CreatePropertyCondition(UIA_AcceleratorKeyPropertyId, vBstr, &lpAccCondition);
+
+            IUIAutomationElement* lpAddressEdit = NULL;
+            sender->FindFirst(TreeScope_Descendants, lpAccCondition, &lpAddressEdit);
+            if (lpAddressEdit == NULL) return S_OK;
+            
+            IUIAutomationValuePattern* lpValuePatten = NULL;
+            lpAddressEdit->GetCurrentPattern(UIA_ValuePatternId, (IUnknown**) & lpValuePatten);
+            if (lpValuePatten == NULL) return S_OK;
+
+            BSTR textUrl = NULL;
+            lpValuePatten->get_CurrentValue(&textUrl);
+            if (textUrl == NULL) return S_OK;
+
+            std::wcout << L"url:" << textUrl << std::endl;
+
+            lpValuePatten->Release();
+            lpAddressEdit->Release();
+        }
+
+        sender->Release();
         return hr;
     }
     catch (std::exception& ex)

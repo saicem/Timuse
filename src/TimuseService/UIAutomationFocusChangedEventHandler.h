@@ -11,6 +11,8 @@ typedef struct
 
 typedef LANGANDCODEPAGE* LPLANGANDCODEPAGE;
 
+const BSTR const ADDRESSBARACCKEY = SysAllocString(L"Ctrl+L");
+
 class UIAutomationFocusChangedEventHandler :
     public IUIAutomationFocusChangedEventHandler
 {
@@ -21,6 +23,8 @@ private:
     LPLANGANDCODEPAGE _lpLangAndCodePage;
     FOREGROUNDAPPLICATIONSWITCHEDPROC _applicationSwitchHandler;
 
+    IUIAutomation* _uiAutomation;
+
     WCHAR _fileName[MAX_PATH] = { 0 };
     WCHAR _filePath[MAX_PATH] = { 0 };
     WCHAR lpCmdBuffer[41] = { 0 };
@@ -28,10 +32,11 @@ private:
     HRESULT GetFileInfoByProcessId(DWORD pid, BSTR* fileName, BSTR* filePath);
 
 public:
-    UIAutomationFocusChangedEventHandler(FOREGROUNDAPPLICATIONSWITCHEDPROC applicationSwitchedHandler)
+    UIAutomationFocusChangedEventHandler(IUIAutomation* uiAutomation, FOREGROUNDAPPLICATIONSWITCHEDPROC applicationSwitchedHandler)
         : _refCount(1), _lastPid(0), _fileName(), _filePath(), lpCmdBuffer(), _lpLangAndCodePage(NULL)
     {
         _applicationSwitchHandler = applicationSwitchedHandler;
+        _uiAutomation = uiAutomation;
     }
 
     virtual ULONG STDMETHODCALLTYPE AddRef() override
