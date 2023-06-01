@@ -1,6 +1,5 @@
 #pragma once
 #include <UIAutomation.h>
-#include <UIAutomationClient.h>
 
 typedef void (*FOREGROUNDAPPLICATIONSWITCHEDPROC)(LPVOID lpName, LPVOID lpPath);
 

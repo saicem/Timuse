@@ -1,14 +1,25 @@
 ﻿#include <iostream>
 #include <UIAutomation.h>
-#include <UIAutomationClient.h>
 #include "UIAutomationFocusChangedEventHandler.h"
 
 HRESULT InitializeUIAutomation(IUIAutomation** ppAutomation);
 HRESULT InitializeApplicationListener(void);
+HRESULT PreventMultiInstance();
+void CreateConsoleWhileDebug(void);
 
-int main()
+int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
-    HRESULT hr = InitializeApplicationListener();
+    CreateConsoleWhileDebug();
+
+    HRESULT hr = S_OK;
+    hr = PreventMultiInstance();
+    if (FAILED(hr))
+    {
+        std::cout << "timuse service already launched." << std::endl;
+        return hr;
+    }
+
+    hr = InitializeApplicationListener();
     if (FAILED(hr)) return hr;
 
     MSG msg = { };
@@ -17,28 +28,29 @@ int main()
         TranslateMessage(&msg);
         DispatchMessage(&msg);
     }
+    return 0;
 }
 
 HRESULT InitializeApplicationListener()
 {
     HRESULT hr;
     hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
-    if (FAILED(hr)) return 1;
+    if (FAILED(hr)) return -1;
 
     IUIAutomation* pUIAutomation;
     hr = InitializeUIAutomation(&pUIAutomation);
-    if (FAILED(hr)) return 2;
+    if (FAILED(hr)) return -2;
 
     IUIAutomationElement* pUIElementRoot;
 
     hr = pUIAutomation->GetRootElement(&pUIElementRoot);
-    if (FAILED(hr)) return 3;
+    if (FAILED(hr)) return -3;
 
     HMODULE hLibService = LoadLibrary(L"TimuseService.Lib.dll");
-    if (hLibService == NULL) return 4;
+    if (hLibService == NULL) return -4;
     auto onSwitch = (FOREGROUNDAPPLICATIONSWITCHEDPROC)GetProcAddress(hLibService, "OnSwitch");
     auto initService = GetProcAddress(hLibService, "InitService");
-    if (!initService || !onSwitch) return 5;
+    if (!initService || !onSwitch) return -5;
 
     initService();
 
@@ -57,4 +69,24 @@ HRESULT InitializeUIAutomation(IUIAutomation** ppAutomation)
     return CoCreateInstance(CLSID_CUIAutomation, NULL,
         CLSCTX_INPROC_SERVER, IID_IUIAutomation,
         reinterpret_cast<void**>(ppAutomation));
+}
+
+HRESULT PreventMultiInstance()
+{
+    HANDLE hMutex = NULL;
+    hMutex = OpenMutex(MUTEX_ALL_ACCESS, FALSE, L"MUTEXOFTIMEUSESERVICE");
+    if (NULL == hMutex) hMutex = CreateMutex(0, FALSE, L"MUTEXOFTIMEUSESERVICE");
+    else return -1;
+    return S_OK;
+}
+
+void CreateConsoleWhileDebug()
+{
+#ifdef _DEBUG
+    AllocConsole();
+    FILE* stream;
+    freopen_s(&stream, "CON", "r", stdin);
+    freopen_s(&stream, "CON", "w", stdout);
+    SetConsoleTitle(L"Timuse Service Console");
+#endif // DEBUG
 }

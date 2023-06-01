@@ -24,7 +24,7 @@ HRESULT UIAutomationFocusChangedEventHandler::HandleFocusChangedEvent(IUIAutomat
     catch (std::exception& ex)
     {
         std::cout << ex.what() << std::endl;
-        return S_FALSE;
+        return -1;
     }
 }
 
@@ -34,7 +34,7 @@ HRESULT UIAutomationFocusChangedEventHandler::GetFileInfoByProcessId(DWORD pid, 
 
     if (!hProcess)
     {
-        return S_FALSE;
+        return -1;
     }
 
     DWORD dwPathLength = MAX_PATH;
