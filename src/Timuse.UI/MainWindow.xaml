@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Window
-    x:Class="TimuseWinUI.MainWindow"
+    x:Class="Timuse.UI.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:TimuseWinUI"
-    xmlns:c="using:TimuseWinUI.Controls"
+    xmlns:local="using:Timuse.UI"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:c="using:Timuse.UI.Control"
     mc:Ignorable="d">
 
     <Grid Background="#F2E4ECF1">
@@ -31,11 +31,11 @@
                     <c:Logo Width="64"/>
                     <TextBlock VerticalAlignment="Bottom" Foreground="#7D87A5" FontSize="20" FontWeight="Bold" TextAlignment="Right" Width="96">Timuse</TextBlock>
                 </StackPanel>
-                <c:TabButton x:Name="generalTab" Tapped="NavigatorTabTapped" Height="48" Margin="0,64,0,8" Text="概览" ActiveIcon="ms-appx:///Assets/Images/Tabs/General1.svg" InactiveIcon="ms-appx:///Assets/Images/Tabs/General0.svg"/>
-                <c:TabButton x:Name="statisticTab" Tapped="NavigatorTabTapped" Height="48" Margin="0,8" Text="统计" ActiveIcon="ms-appx:///Assets/Images/Tabs/Statistic1.svg" InactiveIcon="ms-appx:///Assets/Images/Tabs/Statistic0.svg"/>
-                <c:TabButton x:Name="detailTab" Tapped="NavigatorTabTapped" Height="48" Margin="0,8" Text="详细" ActiveIcon="ms-appx:///Assets/Images/Tabs/Detail1.svg" InactiveIcon="ms-appx:///Assets/Images/Tabs/Detail0.svg"/>
-                <c:TabButton x:Name="categoryTab" Tapped="NavigatorTabTapped" Height="48" Margin="0,8" Text="分类" ActiveIcon="ms-appx:///Assets/Images/Tabs/Category1.svg" InactiveIcon="ms-appx:///Assets/Images/Tabs/Category0.svg"/>
-                <c:TabButton x:Name="configTab" Tapped="NavigatorTabTapped" Height="48" Margin="0,8" Text="设置" ActiveIcon="ms-appx:///Assets/Images/Tabs/Config1.svg" InactiveIcon="ms-appx:///Assets/Images/Tabs/Config0.svg"/>
+                <c:Tab x:Name="generalTab" Tapped="NavigatorTabTapped" Height="48" Margin="0,64,0,8" Text="概览" ActiveIcon="ms-appx:///Assets/Image/General1.svg" InactiveIcon="ms-appx:///Assets/Image/General0.svg"/>
+                <c:Tab x:Name="statisticTab" Tapped="NavigatorTabTapped" Height="48" Margin="0,8" Text="统计" ActiveIcon="ms-appx:///Assets/Image/Statistic1.svg" InactiveIcon="ms-appx:///Assets/Image/Statistic0.svg"/>
+                <c:Tab x:Name="detailTab" Tapped="NavigatorTabTapped" Height="48" Margin="0,8" Text="详细" ActiveIcon="ms-appx:///Assets/Image/Detail1.svg" InactiveIcon="ms-appx:///Assets/Image/Detail0.svg"/>
+                <c:Tab x:Name="categoryTab" Tapped="NavigatorTabTapped" Height="48" Margin="0,8" Text="分类" ActiveIcon="ms-appx:///Assets/Image/Category1.svg" InactiveIcon="ms-appx:///Assets/Image/Category0.svg"/>
+                <c:Tab x:Name="configTab" Tapped="NavigatorTabTapped" Height="48" Margin="0,8" Text="设置" ActiveIcon="ms-appx:///Assets/Image/Config1.svg" InactiveIcon="ms-appx:///Assets/Image/Config0.svg"/>
             </StackPanel>
             <Grid Grid.Column="1" Background="#F9F9F9" Margin="0,0,30,30" CornerRadius="8">
                 <Frame x:Name="frame"/>
