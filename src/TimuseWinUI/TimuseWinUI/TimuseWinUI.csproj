@@ -12,8 +12,23 @@
 	<WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
   </PropertyGroup>
   <ItemGroup>
+    <Content Remove="Assets\Category1.svg" />
+    <Content Remove="Assets\Detail1.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Assets\Images\Tabs\Category0.svg" />
+    <None Remove="Assets\Images\Tabs\Config0.svg" />
+    <None Remove="Assets\Images\Tabs\Config1.svg" />
+    <None Remove="Assets\Images\Tabs\Detail0.svg" />
+    <None Remove="Assets\Images\Tabs\General0.svg" />
+    <None Remove="Assets\Images\Tabs\General1.svg" />
+    <None Remove="Assets\Images\Tabs\Statistic0.svg" />
+    <None Remove="Assets\Images\Tabs\Statistic1.svg" />
+    <None Remove="Colors.xaml" />
     <None Remove="Controls\Logo.xaml" />
     <None Remove="Controls\TabButton.xaml" />
+    <None Remove="Pages\GeneralPage.xaml" />
+    <None Remove="Pages\StatisticPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +36,51 @@
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.2.230217.4" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
     <Manifest Include="$(ApplicationManifest)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Assets\Images\Tabs\Category1.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\Tabs\Detail1.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Assets\Images\Tabs\Category0.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <None Update="Assets\Images\Tabs\Category1.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Update="Assets\Images\Tabs\Config0.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\Tabs\Detail0.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <None Update="Assets\Images\Tabs\Detail1.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Page Update="Colors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\StatisticPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Content Update="Assets\Images\Tabs\General0.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\Tabs\General1.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\Tabs\Statistic0.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Images\Tabs\Statistic1.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -33,6 +93,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Assets\" />
+    <Page Update="Pages\GeneralPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>

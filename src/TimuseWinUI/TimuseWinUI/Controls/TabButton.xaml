@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <UserControl
     x:Class="TimuseWinUI.Controls.TabButton"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -6,19 +5,23 @@
     xmlns:local="using:TimuseWinUI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    x:Name="control">
 
     <UserControl.Resources>
         <LinearGradientBrush x:Key="BackgroundActive">
             <GradientStop Color="#396AFC" Offset="0"/>
             <GradientStop Color="#2A4AFF" Offset="1"/>
         </LinearGradientBrush>
+        <SolidColorBrush x:Key="BaseGray" Color="#7D87A5"></SolidColorBrush>
     </UserControl.Resources>
-    <Grid>
-        <Border CornerRadius="8" Background="{StaticResource BackgroundActive}"/>
+    <Grid Background="Transparent">
+        <Border x:Name="border" CornerRadius="8"/>
         <StackPanel Margin="32 0 0 0" VerticalAlignment="Center" Orientation="Horizontal">
-            <Border Background="White" Height="36" Width="36" CornerRadius="8"/>
-            <TextBlock Margin="16 0 0 0" Text="{x:Bind Text}" Foreground="White" VerticalAlignment="Center" FontSize="16"/>
+            <Viewbox Width="30" Height="30">
+                <Image x:Name="icon" Source="{x:Bind InactiveIcon,Mode=OneTime}"/>
+            </Viewbox>
+            <TextBlock x:Name="text" Margin="16 0 0 0" Text="{x:Bind Text,Mode=OneTime}" Foreground="{StaticResource BaseGray}" VerticalAlignment="Center" FontSize="16"/>
         </StackPanel>
     </Grid>
 </UserControl>
