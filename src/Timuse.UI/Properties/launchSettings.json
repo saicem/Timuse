@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Timuse.UI (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Timuse.UI (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
