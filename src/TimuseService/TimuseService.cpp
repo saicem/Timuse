@@ -82,11 +82,14 @@ HRESULT PreventMultiInstance()
 
 void CreateConsoleWhileDebug()
 {
-#ifdef _DEBUG
-    AllocConsole();
-    FILE* stream;
-    freopen_s(&stream, "CON", "r", stdin);
-    freopen_s(&stream, "CON", "w", stdout);
-    SetConsoleTitle(L"Timuse Service Console");
-#endif // DEBUG
+    int argCnt;
+    LPWSTR* argv = CommandLineToArgvW(GetCommandLine(), &argCnt);
+    if (argv != NULL && argCnt >= 2 && wcscmp(argv[1], L"debug") == 0)
+    {
+        AllocConsole();
+        FILE* stream;
+        freopen_s(&stream, "CON", "r", stdin);
+        freopen_s(&stream, "CON", "w", stdout);
+        SetConsoleTitle(L"Timuse Service Console");
+    }
 }
