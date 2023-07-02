@@ -32,13 +32,14 @@ public sealed partial class Tab : UserControl
             if (active)
             {
                 icon.Source = new SvgImageSource(new Uri(ActiveIcon));
-                //border.Background = control.Resources["BackgroundActive"] as Brush;
+                // todo the general way to get resources
+                container.Background = control.Resources["BackgroundActive"] as Brush;
                 text.Foreground = new SolidColorBrush { Color = Colors.White };
             }
             else
             {
                 icon.Source = new SvgImageSource(new Uri(InactiveIcon));
-                border.Background = null;
+                container.Background = new SolidColorBrush { Color = Colors.Transparent };
                 text.Foreground = new SolidColorBrush { Color = Color.FromArgb(255, 125, 135, 165) };
             }
         }
@@ -46,4 +47,14 @@ public sealed partial class Tab : UserControl
     }
 
     public string CurrentIcon { get => active ? ActiveIcon : InactiveIcon; }
+
+    private void Grid_PointerEntered(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
+    {
+
+    }
+
+    private void Grid_PointerExited(object sender, Microsoft.UI.Xaml.Input.PointerRoutedEventArgs e)
+    {
+
+    }
 }

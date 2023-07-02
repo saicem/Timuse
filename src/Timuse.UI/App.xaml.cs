@@ -2,6 +2,8 @@
 using Microsoft.Windows.AppLifecycle;
 using System;
 using System.Diagnostics;
+using System.IO;
+using Timuse.UI.Data;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -12,9 +14,27 @@ public partial class App : Application
 {
     private const string AppInstanceKey = nameof(AppInstanceKey);
 
+    public static DataLoader DataLoader { get; private set; }
+
     public App()
     {
         this.InitializeComponent();
+
+        DataLoader = new DataLoader();
+        //InitializeService();
+    }
+
+    private void InitializeService()
+    {
+        var toPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "TimuseService.exe");
+        var fromPath = Path.Combine(Windows.ApplicationModel.Package.Current.InstalledPath, "Assets\\Bin\\TimuseService.exe");
+
+        Process.Start(fromPath);
+        if (File.Exists(toPath))
+        {
+            return;
+        }
+        File.CreateSymbolicLink(toPath, fromPath);
     }
 
     protected override void OnLaunched(LaunchActivatedEventArgs args)

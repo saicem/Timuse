@@ -6,7 +6,8 @@
     xmlns:local="using:Timuse.UI.Control"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    x:Name="control">
 
     <UserControl.Resources>
         <LinearGradientBrush x:Key="BackgroundActive">
@@ -15,13 +16,12 @@
         </LinearGradientBrush>
         <SolidColorBrush x:Key="BaseGray" Color="#7D87A5"></SolidColorBrush>
     </UserControl.Resources>
-    <Grid Background="Transparent">
-        <Border x:Name="border" CornerRadius="8"/>
-        <StackPanel Margin="32 0 0 0" VerticalAlignment="Center" Orientation="Horizontal">
+    <Grid x:Name="container" Background="Transparent">
+        <StackPanel Margin="32,0,0,0" VerticalAlignment="Center" Orientation="Horizontal">
             <Viewbox Width="30" Height="30">
                 <Image x:Name="icon" Source="{x:Bind InactiveIcon,Mode=OneTime}"/>
             </Viewbox>
-            <TextBlock x:Name="text" Margin="16 0 0 0" Text="{x:Bind Text,Mode=OneTime}" Foreground="{StaticResource BaseGray}" VerticalAlignment="Center" FontSize="16"/>
+            <TextBlock x:Name="text" Margin="16,0,0,0" Text="{x:Bind Text}" Foreground="{StaticResource BaseGray}" VerticalAlignment="Center" FontSize="16"/>
         </StackPanel>
     </Grid>
 </UserControl>

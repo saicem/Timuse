@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="Timuse.UI.Page.GeneralPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Timuse.UI.Page"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:c="using:Timuse.UI.Control"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+        <StackPanel Padding="64,48,32,48" Background="#F9F9F9" Spacing="32">
+            <TextBlock FontSize="48">概览</TextBlock>
+            <StackPanel Orientation="Horizontal" Spacing="36">
+                <TextBlock FontSize="24">今日</TextBlock>
+                <TextBlock FontSize="24">本周</TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Spacing="8">
+                <TextBlock FontSize="16">最为频繁</TextBlock>
+                <Grid ColumnSpacing="24" Width="auto">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <ScrollViewer Height="300" VerticalScrollBarVisibility="Hidden">
+                        <StackPanel x:Name="appUsageTodayBox" Orientation="Vertical" Background="#FFFFFF" CornerRadius="8" Padding="20,16" Spacing="16">
+                            <StackPanel Padding="8" Height="32" CornerRadius="8" Background="#E5EDF2" Orientation="Horizontal" HorizontalAlignment="Left">
+                                <TextBlock VerticalAlignment="Center">😊</TextBlock>
+                                <TextBlock FontSize="16" VerticalAlignment="Center">应用</TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+                    <ScrollViewer Height="300" VerticalScrollBarVisibility="Hidden" Grid.Column="1">
+                        <StackPanel x:Name="webUsageTodayBox" Orientation="Vertical" Background="#E5EDF2" CornerRadius="8" Padding="20,16" Spacing="16">
+                            <StackPanel Padding="8" Height="32" CornerRadius="8" Background="#F9F9F9" Orientation="Horizontal" HorizontalAlignment="Left">
+                                <TextBlock VerticalAlignment="Center">😊</TextBlock>
+                                <TextBlock FontSize="16" VerticalAlignment="Center">网站</TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </StackPanel>
+            <TextBlock FontSize="20">更多</TextBlock>
+        </StackPanel>
+    </ScrollViewer>
+</Page>
