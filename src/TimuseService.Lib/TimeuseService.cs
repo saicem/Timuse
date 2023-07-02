@@ -17,7 +17,7 @@ public static class TimeuseService
         HandleStatistics();
 
         recordingApplicationName = name;
-        recordingApplicationFocusTime = time;
+        recordingApplicationFocusAt = time;
         recordingApplicationPath = path;
     }
 
@@ -54,9 +54,8 @@ public static class TimeuseService
 
     private static string recordingApplicationName = "";
     private static string recordingApplicationPath = "";
-    private static DateTime recordingApplicationFocusTime;
+    private static DateTime recordingApplicationFocusAt;
 
-    private static readonly DateTime timeStampOrigin = new (2000, 1, 1);
     private static readonly Dictionary<string, ushort> idDictionary = new();
     private static BinaryWriter? recordWriter;
     private static ushort currentMaxId;
@@ -70,8 +69,8 @@ public static class TimeuseService
         if (recordWriter is null) return;
         if (string.IsNullOrEmpty(recordingApplicationName)) return;
 
-        var timestamp = (uint)(recordingApplicationFocusTime - timeStampOrigin).TotalSeconds;
-        var duration = (uint)(DateTime.UtcNow - recordingApplicationFocusTime).TotalMilliseconds;
+        var recordStartAt = recordingApplicationFocusAt.TimeOfDay;
+        var duration = DateTime.UtcNow - recordingApplicationFocusAt;
 
         var success = idDictionary.TryGetValue(recordingApplicationPath, out ushort id);
         if (!success)
@@ -82,12 +81,12 @@ public static class TimeuseService
             SaveApplicationInfo(recordingApplicationPath, recordingApplicationName, id);
         }
 
-        recordWriter.Write(id);
-        recordWriter.Write(timestamp);
-        recordWriter.Write(duration);
+        var record = new ApplicationRecord { ApplicationId = id, RecordStartAt = recordStartAt, Duration = duration };
+
+        recordWriter.Write(record.Data);
         recordWriter.Flush();
         
-        Console.WriteLine($"{recordingApplicationName}({id}):{timestamp},{duration}");
+        Console.WriteLine(@$"[{recordStartAt:hh\:mm\:ss}] <{duration}> {id}: {recordingApplicationName}");
     }
 
     private static void SaveApplicationInfo(string path, string name, ushort id)
