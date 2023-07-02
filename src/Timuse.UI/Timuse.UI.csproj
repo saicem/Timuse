@@ -14,6 +14,8 @@
     <DefaultLanguage>zh-CN</DefaultLanguage>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Assets\Bin\TimuseService.exe" />
+    <None Remove="Assets\Bin\TimuseService.Lib.dll" />
     <None Remove="Assets\Image\Category0.svg" />
     <None Remove="Assets\Image\Category1.svg" />
     <None Remove="Assets\Image\Config0.svg" />
@@ -26,6 +28,8 @@
     <None Remove="Assets\Image\Statistic1.svg" />
     <None Remove="Control\Logo.xaml" />
     <None Remove="Control\Tab.xaml" />
+    <None Remove="Control\UsageDurationBar.xaml" />
+    <None Remove="Page\GeneralPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,12 +57,22 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Control\UsageDurationBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="Control\Logo.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Control\Tab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Page\GeneralPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

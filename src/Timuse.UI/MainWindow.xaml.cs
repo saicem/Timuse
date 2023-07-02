@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Timuse.UI.Control;
+using Timuse.UI.Page;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using WinRT.Interop;
@@ -29,16 +30,10 @@ public sealed partial class MainWindow : Window
 {
     public MainWindow()
     {
-        this.Closed += MainWindow_Closed;
-
-        // todo get this
         this.InitializeComponent();
+
         this.ExtendsContentIntoTitleBar = true;
         this.SetTitleBar(titleBar);
-    }
-
-    private void MainWindow_Closed(object sender, WindowEventArgs args)
-    {
     }
 
     private Tab lastActiveTab = null;
@@ -62,7 +57,7 @@ public sealed partial class MainWindow : Window
     {
         if (tab == generalTab)
         {
-            //frame.Navigate(typeof(GeneralPage));
+            frame.Navigate(typeof(GeneralPage));
         }
         else if (tab == statisticTab)
         {

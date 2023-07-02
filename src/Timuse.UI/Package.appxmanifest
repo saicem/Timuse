@@ -6,7 +6,6 @@
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
   xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
-  xmlns:desktop6="http://schemas.microsoft.com/appx/manifest/desktop/windows10/6"
   IgnorableNamespaces="uap rescap uap3">
 
   <Identity
@@ -44,20 +43,11 @@
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" />
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
-		
-	  <Extensions>
-		<desktop6:Extension Category="windows.service" EntryPoint="Windows.FullTrustApplication" Executable="TimuseService.exe">
-	      <desktop6:Service Name="Timuse Service" StartAccount="localService" StartupType="auto" />
-		</desktop6:Extension>
-	  </Extensions>
-		
     </Application>
   </Applications>
 
   <Capabilities>
     <rescap:Capability Name="runFullTrust" />
-	<rescap:Capability Name="localSystemServices" />
-	<rescap:Capability Name="packagedServices" />
   </Capabilities>
 
   
