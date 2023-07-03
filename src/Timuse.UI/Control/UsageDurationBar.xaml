@@ -15,14 +15,18 @@
 
     <StackPanel x:Name="container" Orientation="Horizontal" Spacing="24" Background="Transparent" PointerEntered="OnPointerEntered" PointerExited="OnPointerExited">
         <Border x:Name="iconBorder" BorderThickness="2" CornerRadius="8">
-            <Rectangle Height="56" Width="56" Fill="#E4ECF1" RadiusX="8" RadiusY="8"/>
+            <Rectangle Height="56" Width="56" Fill="{ThemeResource SCB3}" RadiusX="8" RadiusY="8"/>
         </Border>
-        <StackPanel Orientation="Vertical" Spacing="6">
-            <TextBlock Text="{x:Bind AppName}" Foreground="#7D87A5"/>
-            <StackPanel Orientation="Horizontal" Spacing="12">
-                <Rectangle Width="{x:Bind Ratio,Converter={StaticResource PercentageConverter},ConverterParameter=250}" Fill="#7D87A5" Height="8px" RadiusX="4" RadiusY="4"/>
-                <TextBlock Text="{x:Bind local:UsageDurationBar.DurationToText(Duration)}" Foreground="#7D87A5"/>
+        <Grid Margin="0,8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="appNameText" FontSize="16" VerticalAlignment="Center" Text="{x:Bind AppName}" Foreground="{ThemeResource SCB4}"/>
+            <StackPanel Orientation="Horizontal" Spacing="12" Grid.Row="1" VerticalAlignment="Center">
+                <Rectangle x:Name="ratioBar" Width="{x:Bind Ratio,Converter={StaticResource PercentageConverter},ConverterParameter=250}" Fill="{ThemeResource SCB4}" Height="8px" RadiusX="4" RadiusY="4"/>
+                <TextBlock x:Name="durationText" Text="{x:Bind local:UsageDurationBar.DurationToText(Duration)}" Foreground="{ThemeResource SCB4}"/>
             </StackPanel>
-        </StackPanel>
+        </Grid>
     </StackPanel>
 </UserControl>

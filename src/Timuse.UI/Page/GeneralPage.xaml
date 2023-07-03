@@ -8,10 +8,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:c="using:Timuse.UI.Control"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="#90ffffff">
 
     <ScrollViewer VerticalScrollBarVisibility="Hidden">
-        <StackPanel Padding="64,48,32,48" Background="#F9F9F9" Spacing="32">
+        <StackPanel Padding="64,48,32,48" Spacing="32">
             <TextBlock FontSize="48">概览</TextBlock>
             <StackPanel Orientation="Horizontal" Spacing="36">
                 <TextBlock FontSize="24">今日</TextBlock>
@@ -24,17 +24,17 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <ScrollViewer Height="300" VerticalScrollBarVisibility="Hidden">
-                        <StackPanel x:Name="appUsageTodayBox" Orientation="Vertical" Background="#FFFFFF" CornerRadius="8" Padding="20,16" Spacing="16">
-                            <StackPanel Padding="8" Height="32" CornerRadius="8" Background="#E5EDF2" Orientation="Horizontal" HorizontalAlignment="Left">
+                    <ScrollViewer Height="300" VerticalScrollBarVisibility="Hidden" CornerRadius="8">
+                        <StackPanel x:Name="appUsageTodayBox" Orientation="Vertical" Background="{ThemeResource SCB2}"  Padding="20,16" Spacing="16">
+                            <StackPanel Padding="8" Height="32" CornerRadius="8" Background="{ThemeResource SCB3}" Orientation="Horizontal" HorizontalAlignment="Left">
                                 <TextBlock VerticalAlignment="Center">😊</TextBlock>
                                 <TextBlock FontSize="16" VerticalAlignment="Center">应用</TextBlock>
                             </StackPanel>
                         </StackPanel>
                     </ScrollViewer>
-                    <ScrollViewer Height="300" VerticalScrollBarVisibility="Hidden" Grid.Column="1">
-                        <StackPanel x:Name="webUsageTodayBox" Orientation="Vertical" Background="#E5EDF2" CornerRadius="8" Padding="20,16" Spacing="16">
-                            <StackPanel Padding="8" Height="32" CornerRadius="8" Background="#F9F9F9" Orientation="Horizontal" HorizontalAlignment="Left">
+                    <ScrollViewer Height="300" VerticalScrollBarVisibility="Hidden" CornerRadius="8" Grid.Column="1">
+                        <StackPanel x:Name="webUsageTodayBox" Orientation="Vertical" Background="{ThemeResource SCB3}" Padding="20,16" Spacing="16">
+                            <StackPanel Padding="8" Height="32" CornerRadius="8" Background="{ThemeResource SCB2}" Orientation="Horizontal" HorizontalAlignment="Left">
                                 <TextBlock VerticalAlignment="Center">😊</TextBlock>
                                 <TextBlock FontSize="16" VerticalAlignment="Center">网站</TextBlock>
                             </StackPanel>
