@@ -1,9 +1,13 @@
+using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System;
+using System.Collections.Specialized;
+using System.ComponentModel;
 
 namespace Timuse.UI.Control;
 public sealed partial class Tab : UserControl
@@ -15,32 +19,24 @@ public sealed partial class Tab : UserControl
 
     public string Text { set; get; }
 
-    public string ActiveIcon { set; get; }
+    public ImageSource ActiveIcon { set; get; }
 
-    public string InactiveIcon { set; get; }
-
-    private bool active;
+    public ImageSource InactiveIcon { set; get; }
 
     public bool Active
     {
-        set
-        {
-            active = value;
-            if (active)
-            {
-                icon.Source = new SvgImageSource(new Uri(ActiveIcon));
-                container.Background = Application.Current.Resources["SCB1"] as Brush;
-                text.Foreground = Application.Current.Resources["SCB2"] as Brush;
-            }
-            else
-            {
-                icon.Source = new SvgImageSource(new Uri(InactiveIcon));
-                container.Background = new SolidColorBrush(Colors.Transparent);
-                text.Foreground = Application.Current.Resources["SCB4"] as Brush;
-            }
-        }
-        get { return active; }
+        get { return (bool)GetValue(ActiveProperty); }
+        set { SetValue(ActiveProperty, value); }
     }
 
-    public string CurrentIcon { get => active ? ActiveIcon : InactiveIcon; }
+    public static readonly DependencyProperty ActiveProperty =
+        DependencyProperty.Register("Active", typeof(bool), typeof(bool), new PropertyMetadata(null));
+
+    public ImageSource GetCurrentIcon(bool active) => active ? ActiveIcon : InactiveIcon;
+
+    public Brush GetContanerBackground(bool active)
+        => active ? Application.Current.Resources["AccentGradient"] as Brush : new SolidColorBrush(Colors.Transparent);
+
+    public Brush GetTextForeground(bool active)
+        => active ? Application.Current.Resources["TextFillColorInverseBrush"] as Brush : Application.Current.Resources["TextFillColorSecondaryBrush"] as Brush;
 }

@@ -7,19 +7,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-
-    <UserControl.Resources>
-        <LinearGradientBrush x:Key="BackgroundActive">
-            <GradientStop Color="#396AFC" Offset="0"/>
-            <GradientStop Color="#2A4AFF" Offset="1"/>
-        </LinearGradientBrush>
-    </UserControl.Resources>
-    <Grid x:Name="container" Background="Transparent" CornerRadius="8">
+    <Grid x:Name="container" Background="{x:Bind GetContanerBackground(Active),Mode=OneWay}" CornerRadius="8">
         <StackPanel Margin="32,0,0,0" VerticalAlignment="Center" Orientation="Horizontal">
             <Viewbox Width="30" Height="30">
-                <Image x:Name="icon" Source="{x:Bind InactiveIcon,Mode=OneTime}"/>
+                <Image x:Name="icon" Source="{x:Bind GetCurrentIcon(Active),Mode=OneWay}"/>
             </Viewbox>
-            <TextBlock x:Name="text" Margin="16,0,0,0" Text="{x:Bind Text}" Foreground="{ThemeResource SCB4}" VerticalAlignment="Center" FontSize="16"/>
+            <TextBlock x:Name="text" Foreground="{x:Bind GetTextForeground(Active),Mode=OneWay}" Margin="16,0,0,0" Text="{x:Bind Text}" VerticalAlignment="Center" FontSize="16"/>
         </StackPanel>
     </Grid>
 </UserControl>

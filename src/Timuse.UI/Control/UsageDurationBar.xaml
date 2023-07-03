@@ -6,26 +6,22 @@
     xmlns:local="using:Timuse.UI.Control"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:cvt="using:Timuse.UI.Converter"
     xmlns:sys="using:System"
     mc:Ignorable="d">
-    <UserControl.Resources>
-        <cvt:PercentageConverter x:Key="PercentageConverter"/>
-    </UserControl.Resources>
 
     <StackPanel x:Name="container" Orientation="Horizontal" Spacing="24" Background="Transparent" PointerEntered="OnPointerEntered" PointerExited="OnPointerExited">
         <Border x:Name="iconBorder" BorderThickness="2" CornerRadius="8">
-            <Rectangle Height="56" Width="56" Fill="{ThemeResource SCB3}" RadiusX="8" RadiusY="8"/>
+            <Rectangle Fill="{ThemeResource BAccent}" Height="56" Width="56" RadiusX="8" RadiusY="8"/>
         </Border>
         <Grid Margin="0,8">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock x:Name="appNameText" FontSize="16" VerticalAlignment="Center" Text="{x:Bind AppName}" Foreground="{ThemeResource SCB4}"/>
+            <TextBlock x:Name="appNameText" FontSize="16" VerticalAlignment="Center" Text="{x:Bind AppName}"/>
             <StackPanel Orientation="Horizontal" Spacing="12" Grid.Row="1" VerticalAlignment="Center">
-                <Rectangle x:Name="ratioBar" Width="{x:Bind Ratio,Converter={StaticResource PercentageConverter},ConverterParameter=250}" Fill="{ThemeResource SCB4}" Height="8px" RadiusX="4" RadiusY="4"/>
-                <TextBlock x:Name="durationText" Text="{x:Bind local:UsageDurationBar.DurationToText(Duration)}" Foreground="{ThemeResource SCB4}"/>
+                <Rectangle x:Name="ratioBar" Fill="{ThemeResource BDark}" Width="{x:Bind ComputeBarLength(250)}" Height="8px" RadiusX="4" RadiusY="4"/>
+                <TextBlock x:Name="durationText" Foreground="{ThemeResource BDark}" Text="{x:Bind local:UsageDurationBar.DurationToText(Duration)}"/>
             </StackPanel>
         </Grid>
     </StackPanel>
