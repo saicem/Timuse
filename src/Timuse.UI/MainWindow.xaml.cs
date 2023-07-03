@@ -18,25 +18,21 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using WinRT.Interop;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
-
 namespace Timuse.UI;
 
-/// <summary>
-/// An empty window that can be used on its own or navigated to within a Frame.
-/// </summary>
 public sealed partial class MainWindow : Window
 {
     public MainWindow()
     {
         this.InitializeComponent();
-
         this.ExtendsContentIntoTitleBar = true;
         this.SetTitleBar(titleBar);
+
+        lastActiveTab = generalTab;
+        frame.Navigate(typeof(GeneralPage));
     }
 
-    private Tab lastActiveTab = null;
+    private Tab lastActiveTab;
 
     private void NavigatorTabTapped(object sender, TappedRoutedEventArgs e)
     {
@@ -63,12 +59,5 @@ public sealed partial class MainWindow : Window
         {
             //frame.Navigate(typeof(StatisticPage));
         }
-    }
-
-    private AppWindow GetAppWindowForCurrentWindow()
-    {
-        IntPtr hWnd = WindowNative.GetWindowHandle(this);
-        WindowId wndId = Win32Interop.GetWindowIdFromWindow(hWnd);
-        return AppWindow.GetFromWindowId(wndId);
     }
 }

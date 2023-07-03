@@ -1,3 +1,4 @@
+using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -12,7 +13,6 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Windows.UI;
 
 namespace Timuse.UI.Control;
 public sealed partial class UsageDurationBar : UserControl
@@ -54,24 +54,24 @@ public sealed partial class UsageDurationBar : UserControl
         return $"{hours}h {minutes}min";
     }
 
-    public double ComputeBarLength(double baseLength, double ratio)
+    public double ComputeBarLength(double baseLength)
     {
-        return baseLength * ratio;
+        return baseLength * Ratio;
     }
 
     private void OnPointerEntered(object sender, PointerRoutedEventArgs e)
     {
-        iconBorder.BorderBrush = Application.Current.Resources["SCB1"] as Brush;
-        appNameText.Foreground = Application.Current.Resources["SCB1"] as Brush;
-        ratioBar.Fill = Application.Current.Resources["SCB1"] as Brush;
-        durationText.Foreground = Application.Current.Resources["SCB1"] as Brush;
+        iconBorder.BorderBrush = Application.Current.Resources["AccentColor"] as Brush;
+        appNameText.Foreground = Application.Current.Resources["AccentColor"] as Brush;
+        ratioBar.Fill = Application.Current.Resources["AccentColor"] as Brush;
+        durationText.Foreground = Application.Current.Resources["AccentColor"] as Brush;
     }
 
     private void OnPointerExited(object sender, PointerRoutedEventArgs e)
     {
         iconBorder.BorderBrush = null;
-        appNameText.Foreground = Application.Current.Resources["SCB4"] as Brush;
-        ratioBar.Fill = Application.Current.Resources["SCB4"] as Brush;
-        durationText.Foreground = Application.Current.Resources["SCB4"] as Brush;
+        appNameText.Foreground = Application.Current.Resources["BDark"] as Brush;
+        ratioBar.Fill = Application.Current.Resources["BDark"] as Brush;
+        durationText.Foreground = Application.Current.Resources["BDark"] as Brush;
     }
 }
