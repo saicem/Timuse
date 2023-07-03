@@ -9,7 +9,7 @@
     xmlns:c="using:Timuse.UI.Control"
     mc:Ignorable="d">
 
-    <Grid Background="#F2E4ECF1">
+    <Grid Background="{ThemeResource SCB3}">
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
@@ -29,7 +29,7 @@
             <StackPanel Orientation="Vertical" VerticalAlignment="Top" Margin="32 0">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                     <c:Logo Width="64"/>
-                    <TextBlock VerticalAlignment="Bottom" Foreground="#7D87A5" FontSize="20" FontWeight="Bold" TextAlignment="Right" Width="96">Timuse</TextBlock>
+                    <TextBlock VerticalAlignment="Bottom" Foreground="{ThemeResource SCB4}" FontSize="20" FontWeight="Bold" TextAlignment="Right" Width="96">Timuse</TextBlock>
                 </StackPanel>
                 <c:Tab x:Name="generalTab" Tapped="NavigatorTabTapped" Height="48" Margin="0,64,0,8" Text="概览" ActiveIcon="ms-appx:///Assets/Image/General1.svg" InactiveIcon="ms-appx:///Assets/Image/General0.svg"/>
                 <c:Tab x:Name="statisticTab" Tapped="NavigatorTabTapped" Height="48" Margin="0,8" Text="统计" ActiveIcon="ms-appx:///Assets/Image/Statistic1.svg" InactiveIcon="ms-appx:///Assets/Image/Statistic0.svg"/>
@@ -37,7 +37,7 @@
                 <c:Tab x:Name="categoryTab" Tapped="NavigatorTabTapped" Height="48" Margin="0,8" Text="分类" ActiveIcon="ms-appx:///Assets/Image/Category1.svg" InactiveIcon="ms-appx:///Assets/Image/Category0.svg"/>
                 <c:Tab x:Name="configTab" Tapped="NavigatorTabTapped" Height="48" Margin="0,8" Text="设置" ActiveIcon="ms-appx:///Assets/Image/Config1.svg" InactiveIcon="ms-appx:///Assets/Image/Config0.svg"/>
             </StackPanel>
-            <Grid Grid.Column="1" Background="#F9F9F9" Margin="0,0,30,30" CornerRadius="8">
+            <Grid Grid.Column="1" Margin="0,0,30,30" CornerRadius="8">
                 <Frame x:Name="frame"/>
             </Grid>
         </Grid>

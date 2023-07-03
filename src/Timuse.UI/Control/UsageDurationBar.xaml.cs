@@ -61,11 +61,17 @@ public sealed partial class UsageDurationBar : UserControl
 
     private void OnPointerEntered(object sender, PointerRoutedEventArgs e)
     {
-        iconBorder.BorderBrush = new SolidColorBrush { Color = Color.FromArgb(255, 57, 106, 252) };
+        iconBorder.BorderBrush = Application.Current.Resources["SCB1"] as Brush;
+        appNameText.Foreground = Application.Current.Resources["SCB1"] as Brush;
+        ratioBar.Fill = Application.Current.Resources["SCB1"] as Brush;
+        durationText.Foreground = Application.Current.Resources["SCB1"] as Brush;
     }
 
     private void OnPointerExited(object sender, PointerRoutedEventArgs e)
     {
         iconBorder.BorderBrush = null;
+        appNameText.Foreground = Application.Current.Resources["SCB4"] as Brush;
+        ratioBar.Fill = Application.Current.Resources["SCB4"] as Brush;
+        durationText.Foreground = Application.Current.Resources["SCB4"] as Brush;
     }
 }

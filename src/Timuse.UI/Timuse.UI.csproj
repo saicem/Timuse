@@ -30,6 +30,7 @@
     <None Remove="Control\Tab.xaml" />
     <None Remove="Control\UsageDurationBar.xaml" />
     <None Remove="Page\GeneralPage.xaml" />
+    <None Remove="Resource\DarkTheme.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -57,6 +58,11 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Resource\DarkTheme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="Control\UsageDurationBar.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -73,6 +79,11 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Page\GeneralPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Resource\LightTheme.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
