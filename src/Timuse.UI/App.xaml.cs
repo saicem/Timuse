@@ -5,9 +5,6 @@ using System.Diagnostics;
 using System.IO;
 using Timuse.UI.Data;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
-
 namespace Timuse.UI;
 
 public partial class App : Application
@@ -21,10 +18,11 @@ public partial class App : Application
         this.InitializeComponent();
 
         DataLoader = new DataLoader();
-        //InitializeService();
+
+        // InitializeService();
     }
 
-    private void InitializeService()
+    private static void InitializeService()
     {
         var toPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "TimuseService.exe");
         var fromPath = Path.Combine(Windows.ApplicationModel.Package.Current.InstalledPath, "Assets\\Bin\\TimuseService.exe");
@@ -34,6 +32,7 @@ public partial class App : Application
         {
             return;
         }
+
         File.CreateSymbolicLink(toPath, fromPath);
     }
 
@@ -57,9 +56,10 @@ public partial class App : Application
         {
             Process.GetCurrentProcess().Kill();
         }
-        m_window = new MainWindow();
-        m_window.Activate();
+
+        this.window = new MainWindow();
+        this.window.Activate();
     }
 
-    private Window m_window;
+    private Window window;
 }

@@ -1,44 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Application
-    x:Class="Timuse.UI.App"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Timuse.UI">
+<Application x:Class="Timuse.UI.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Application.Resources>
         <ResourceDictionary>
-            
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <Color x:Key="BorderBaseColor">#DFDFDF</Color>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <Color x:Key="BorderBaseColor">#1F1F1F</Color>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
             </ResourceDictionary.MergedDictionaries>
 
-            <ResourceDictionary.ThemeDictionaries>
-                <ResourceDictionary x:Key="Light">
-                    <SolidColorBrush x:Key="BLight" Color="#FFFFFF"/>
-                    <SolidColorBrush x:Key="BDark" Color="#8F8F8F"/>
-                    <SolidColorBrush x:Key="BAccent" Color="#E5EDF2"/>
-                </ResourceDictionary>
-                <ResourceDictionary x:Key="Dark">
-                    <SolidColorBrush x:Key="BLight" Color="#000000"/>
-                    <SolidColorBrush x:Key="BDark" Color="#acccad"/>
-                    <SolidColorBrush x:Key="BAccent" Color="AliceBlue"/>
-                </ResourceDictionary>
-            </ResourceDictionary.ThemeDictionaries>
             
-            <SolidColorBrush x:Key="WindowCaptionBackground" Color="Transparent"/>
-            <SolidColorBrush x:Key="WindowCaptionBackgroundDisabled" Color="Transparent"/>
+            <SolidColorBrush x:Key="BorderBaseBrush" Color="{ThemeResource BorderBaseColor}"/>
 
-            <SolidColorBrush x:Key="AccentColor" Color="{ThemeResource SystemAccentColor}"/>
-            <SolidColorBrush x:Key="AccentColorLight1" Color="{ThemeResource SystemAccentColorLight1}"/>
-            <SolidColorBrush x:Key="AccentColorLight2" Color="{ThemeResource SystemAccentColorLight2}"/>
-            <SolidColorBrush x:Key="AccentColorLight3" Color="{ThemeResource SystemAccentColorLight3}"/>
-            <SolidColorBrush x:Key="AccentColorDark1" Color="{ThemeResource SystemAccentColorDark1}"/>
-            <SolidColorBrush x:Key="AccentColorDark2" Color="{ThemeResource SystemAccentColorDark2}"/>
-            <SolidColorBrush x:Key="AccentColorDark3" Color="{ThemeResource SystemAccentColorDark3}"/>
-            <LinearGradientBrush x:Key="AccentGradient">
-                <GradientStop Color="{ThemeResource SystemAccentColor}" Offset="0"/>
-                <GradientStop Color="{ThemeResource SystemAccentColorLight1}" Offset="1"/>
+            <SolidColorBrush x:Key="AccentBrush" Color="{ThemeResource SystemAccentColor}" />
+            <LinearGradientBrush x:Key="AccentGradientBrush">
+                <GradientStop Color="{ThemeResource SystemAccentColor}" Offset="0" />
+                <GradientStop Color="{ThemeResource SystemAccentColorLight1}" Offset="1" />
             </LinearGradientBrush>
-            
+
+            <SolidColorBrush x:Key="WindowCaptionBackground" Color="Transparent" />
+            <SolidColorBrush x:Key="WindowCaptionBackgroundDisabled" Color="Transparent" />
+
+            <Style x:Key="BorderBaseStyle" TargetType="ContentControl">
+                <Setter Property="BorderBrush" Value="{StaticResource BorderBaseBrush}"/>
+                <Setter Property="BorderThickness" Value="0.8"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

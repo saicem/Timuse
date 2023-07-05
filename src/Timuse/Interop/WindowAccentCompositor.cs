@@ -53,13 +53,13 @@ namespace Timuse.Interop
                 (byte)((_blurColor & 0xff000000) >> 24));
             set => _blurColor =
                 // 组装红色分量。
-                value.R << 0 |
+                (value.R << 0) |
                 // 组装绿色分量。
-                value.G << 8 |
+                (value.G << 8) |
                 // 组装蓝色分量。
-                value.B << 16 |
+                (value.B << 16) |
                 // 组装透明分量。
-                value.A << 24;
+                (value.A << 24);
         }
 
         public void SetRoundCorner()

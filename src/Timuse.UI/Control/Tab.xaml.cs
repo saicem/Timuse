@@ -10,6 +10,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 
 namespace Timuse.UI.Control;
+
 public sealed partial class Tab : UserControl
 {
     public Tab()
@@ -25,18 +26,18 @@ public sealed partial class Tab : UserControl
 
     public bool Active
     {
-        get { return (bool)GetValue(ActiveProperty); }
-        set { SetValue(ActiveProperty, value); }
+        get { return (bool)this.GetValue(ActiveProperty); }
+        set { this.SetValue(ActiveProperty, value); }
     }
 
-    public static readonly DependencyProperty ActiveProperty =
+    private static readonly DependencyProperty ActiveProperty =
         DependencyProperty.Register("Active", typeof(bool), typeof(bool), new PropertyMetadata(null));
 
-    public ImageSource GetCurrentIcon(bool active) => active ? ActiveIcon : InactiveIcon;
+    public ImageSource GetCurrentIcon(bool active) => active ? this.ActiveIcon : this.InactiveIcon;
 
-    public Brush GetContanerBackground(bool active)
-        => active ? Application.Current.Resources["AccentGradient"] as Brush : new SolidColorBrush(Colors.Transparent);
+    public static Brush GetContanerBackground(bool active)
+        => active ? Application.Current.Resources["AccentGradientBrush"] as Brush : new SolidColorBrush(Colors.Transparent);
 
-    public Brush GetTextForeground(bool active)
-        => active ? Application.Current.Resources["TextFillColorInverseBrush"] as Brush : Application.Current.Resources["TextFillColorSecondaryBrush"] as Brush;
+    public static Brush GetTextForeground(bool active)
+        => Application.Current.Resources[active ? "TextOnAccentFillColorPrimaryBrush" : "TextFillColorPrimaryBrush"] as Brush;
 }

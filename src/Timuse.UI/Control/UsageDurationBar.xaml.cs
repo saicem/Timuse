@@ -15,6 +15,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 
 namespace Timuse.UI.Control;
+
 public sealed partial class UsageDurationBar : UserControl
 {
     public UsageDurationBar()
@@ -25,15 +26,15 @@ public sealed partial class UsageDurationBar : UserControl
     public string AppName { get; set; }
 
     /// <summary>
-    /// from 0 to 1
+    /// from 0 to 1.
     /// </summary>
     public double Ratio { get; set; }
 
     public TimeSpan Duration { get; set; }
 
-    public static string DurationToText(TimeSpan Duration)
+    public static string DurationToText(TimeSpan duration)
     {
-        var seconds = (int)Duration.TotalSeconds;
+        var seconds = (int)duration.TotalSeconds;
         if (seconds < 60)
         {
             return $"{seconds}s";
@@ -47,31 +48,31 @@ public sealed partial class UsageDurationBar : UserControl
 
         var hours = minutes / 60;
         minutes %= 60;
-        if(minutes == 0)
+        return minutes switch
         {
-            return $"{hours}h";
-        }
-        return $"{hours}h {minutes}min";
+            0 => $"{hours}h",
+            _ => $"{hours}h {minutes}min",
+        };
     }
 
     public double ComputeBarLength(double baseLength)
     {
-        return baseLength * Ratio;
+        return baseLength * this.Ratio;
     }
 
     private void OnPointerEntered(object sender, PointerRoutedEventArgs e)
     {
-        iconBorder.BorderBrush = Application.Current.Resources["AccentColor"] as Brush;
-        appNameText.Foreground = Application.Current.Resources["AccentColor"] as Brush;
-        ratioBar.Fill = Application.Current.Resources["AccentColor"] as Brush;
-        durationText.Foreground = Application.Current.Resources["AccentColor"] as Brush;
+        this.iconBorder.BorderBrush = Application.Current.Resources["AccentBrush"] as Brush;
+        this.appNameText.Foreground = Application.Current.Resources["AccentBrush"] as Brush;
+        this.ratioBar.Fill = Application.Current.Resources["AccentBrush"] as Brush;
+        this.durationText.Foreground = Application.Current.Resources["AccentBrush"] as Brush;
     }
 
     private void OnPointerExited(object sender, PointerRoutedEventArgs e)
     {
-        iconBorder.BorderBrush = null;
-        appNameText.Foreground = Application.Current.Resources["BDark"] as Brush;
-        ratioBar.Fill = Application.Current.Resources["BDark"] as Brush;
-        durationText.Foreground = Application.Current.Resources["BDark"] as Brush;
+        this.iconBorder.BorderBrush = null;
+        this.appNameText.Foreground = Application.Current.Resources["ControlAltFillColorTertiaryBrush"] as Brush;
+        this.ratioBar.Fill = Application.Current.Resources["ControlAltFillColorTertiaryBrush"] as Brush;
+        this.durationText.Foreground = Application.Current.Resources["ControlAltFillColorTertiaryBrush"] as Brush;
     }
 }
