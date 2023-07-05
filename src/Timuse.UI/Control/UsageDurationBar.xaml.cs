@@ -71,8 +71,8 @@ public sealed partial class UsageDurationBar : UserControl
     private void OnPointerExited(object sender, PointerRoutedEventArgs e)
     {
         this.iconBorder.BorderBrush = null;
-        this.appNameText.Foreground = Application.Current.Resources["ControlAltFillColorTertiaryBrush"] as Brush;
-        this.ratioBar.Fill = Application.Current.Resources["ControlAltFillColorTertiaryBrush"] as Brush;
-        this.durationText.Foreground = Application.Current.Resources["ControlAltFillColorTertiaryBrush"] as Brush;
+        this.appNameText.Foreground = Application.Current.Resources["TextFillColorSecondaryBrush"] as Brush;
+        this.ratioBar.Fill = Application.Current.Resources["ControlStrongStrokeColorDefaultBrush"] as Brush;
+        this.durationText.Foreground = Application.Current.Resources["TextFillColorSecondaryBrush"] as Brush;
     }
 }

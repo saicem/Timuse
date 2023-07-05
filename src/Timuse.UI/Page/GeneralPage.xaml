@@ -33,14 +33,6 @@
                             </StackPanel>
                         </StackPanel>
                     </ScrollViewer>
-                    <!--<ScrollViewer Height="300" VerticalScrollBarVisibility="Hidden" CornerRadius="8" Grid.Column="1" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
-                        <StackPanel x:Name="webUsageTodayBox" Orientation="Vertical" Padding="20,16" Spacing="16">
-                            <StackPanel Background="{ThemeResource BackgroundHighBrush}" Padding="8" Height="32" CornerRadius="8" Orientation="Horizontal" HorizontalAlignment="Left">
-                                <TextBlock VerticalAlignment="Center">😊</TextBlock>
-                                <TextBlock FontSize="16" VerticalAlignment="Center">网站</TextBlock>
-                            </StackPanel>
-                        </StackPanel>
-                    </ScrollViewer>-->
                 </Grid>
             </StackPanel>
         </StackPanel>
