@@ -10,12 +10,12 @@
     <Viewbox>
         <StackPanel Width="144" Height="72" Orientation="Horizontal">
             <StackPanel HorizontalAlignment="Left">
-                <Rectangle Fill="{ThemeResource AccentGradient}" Width="36" Height="36" />
-                <Rectangle Fill="{ThemeResource AccentGradient}" Margin="0,12,12,0" Width="24" Height="24"/>
+                <Rectangle Fill="{ThemeResource AccentGradientBrush}" Width="36" Height="36" />
+                <Rectangle Fill="{ThemeResource AccentGradientBrush}" Margin="0,12,12,0" Width="24" Height="24"/>
             </StackPanel>
             <Grid>
-                <Path Fill="{ThemeResource AccentGradient}" Data="M-1,0L-1,72L36,72L36,36L72,36L72,0"/>
-                <Path Fill="{ThemeResource AccentGradient}" Data="M84,0L108,0L108,24L84,24M48,48l0,24l24,0l0,-24M84,36l24,0l0,36l-24,0"/>
+                <Path Fill="{ThemeResource AccentGradientBrush}" Data="M-1,0L-1,72L36,72L36,36L72,36L72,0"/>
+                <Path Fill="{ThemeResource AccentGradientBrush}" Data="M84,0L108,0L108,24L84,24M48,48l0,24l24,0l0,-24M84,36l24,0l0,36l-24,0"/>
             </Grid>
         </StackPanel>
     </Viewbox>

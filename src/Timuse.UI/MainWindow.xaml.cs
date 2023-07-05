@@ -26,36 +26,37 @@ public sealed partial class MainWindow : Window
     {
         this.InitializeComponent();
         this.ExtendsContentIntoTitleBar = true;
-        this.SetTitleBar(titleBar);
+        this.SetTitleBar(this.titleBar);
 
-        lastActiveTab = generalTab;
-        frame.Navigate(typeof(GeneralPage));
+        this.lastActiveTab = this.generalTab;
+        this.frame.Navigate(typeof(GeneralPage));
     }
 
     private Tab lastActiveTab;
 
     private void NavigatorTabTapped(object sender, TappedRoutedEventArgs e)
     {
-        var activeTab = (sender as Tab);
+        var activeTab = sender as Tab;
         if (!activeTab.Active)
         {
-            navigate(activeTab);
-            if (lastActiveTab != null)
+            this.Navigate(activeTab);
+            if (this.lastActiveTab != null)
             {
-                lastActiveTab.Active = false;
+                this.lastActiveTab.Active = false;
             }
+
             activeTab.Active = true;
-            lastActiveTab = activeTab;
+            this.lastActiveTab = activeTab;
         }
     }
 
-    private void navigate(Tab tab)
+    private void Navigate(Tab tab)
     {
-        if (tab == generalTab)
+        if (tab == this.generalTab)
         {
-            frame.Navigate(typeof(GeneralPage));
+            this.frame.Navigate(typeof(GeneralPage));
         }
-        else if (tab == statisticTab)
+        else if (tab == this.statisticTab)
         {
             //frame.Navigate(typeof(StatisticPage));
         }

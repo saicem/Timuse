@@ -12,31 +12,31 @@ namespace Timuse.UI.Data;
 
 public class DataLoader
 {
-    private string recordBinPath;
-    private string mapBinPath;
-    private Dictionary<ushort, (string, string)> appMap = new();
+    private readonly string recordBinPath;
+    private readonly string mapBinPath;
+    private readonly Dictionary<ushort, (string, string)> appMap = new();
     private List<ApplicationRecord> appRecords = new();
 
-    public IEnumerable<AppUsageDuration> TodayUsage { get => ComputeAppUsageDuration(appRecords); }
+    public IEnumerable<AppUsageDuration> TodayUsage { get => this.ComputeAppUsageDuration(this.appRecords); }
 
     public DataLoader()
     {
         var localAppPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Timuse");
-        recordBinPath = Path.Combine(localAppPath, "record.bin");
-        mapBinPath = Path.Combine(localAppPath, "map.bin");
-        Reload();
+        this.recordBinPath = Path.Combine(localAppPath, "record.bin");
+        this.mapBinPath = Path.Combine(localAppPath, "map.bin");
+        this.Reload();
     }
 
     public void Reload()
     {
-        LoadMapData();
-        LoadRecordData();
+        this.LoadMapData();
+        this.LoadRecordData();
         Console.WriteLine("Data reloaded.");
     }
 
     public void LoadRecordData()
     {
-        var stream = new FileStream(recordBinPath, FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite);
+        var stream = new FileStream(this.recordBinPath, FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite);
         var reader = new BinaryReader(stream, Encoding.UTF8);
 
         var records = new List<ApplicationRecord>();
@@ -44,14 +44,14 @@ public class DataLoader
         {
             records.Add(new ApplicationRecord { Data = reader.ReadUInt64() });
         }
+
         this.appRecords = records;
         stream.Close();
     }
 
     public void LoadMapData()
     {
-
-        using var stream = new FileStream(mapBinPath, FileMode.OpenOrCreate, FileAccess.Read);
+        using var stream = new FileStream(this.mapBinPath, FileMode.OpenOrCreate, FileAccess.Read);
         using var reader = new BinaryReader(stream, Encoding.UTF8);
 
         while (reader.BaseStream.Position < reader.BaseStream.Length)
@@ -59,8 +59,9 @@ public class DataLoader
             ushort id = reader.ReadUInt16();
             var path = reader.ReadString();
             var name = reader.ReadString();
-            appMap.Add(id, (name, path));
+            this.appMap.Add(id, (name, path));
         }
+
         reader.Close();
     }
 
@@ -70,7 +71,7 @@ public class DataLoader
                group record by record.ApplicationId into g
                select new
                {
-                   AppInfo = appMap.GetValueOrDefault(g.Key),
+                   AppInfo = this.appMap.GetValueOrDefault(g.Key),
                    DurationTicks = g.Sum(r => r.DurationTTicks),
                }
                into x
