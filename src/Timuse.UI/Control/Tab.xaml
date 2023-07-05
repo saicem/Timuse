@@ -6,13 +6,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d">
-    <Grid x:Name="container" Background="{x:Bind local:Tab.GetContanerBackground(Active),Mode=OneWay}" CornerRadius="8">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="TextOnAccentFillColorPrimaryBrush" Color="{ThemeResource TextOnAccentAAFillColorPrimary}"/>
+        <SolidColorBrush x:Key="TextFillColorPrimaryBrush" Color="{ThemeResource TextFillColorPrimary}"/>
+    </UserControl.Resources>
+    <Grid x:Name="container" Background="{x:Bind GetContanerBackground(Active),Mode=OneWay}" CornerRadius="8">
         <StackPanel Margin="32,0,0,0" VerticalAlignment="Center" Orientation="Horizontal">
             <Viewbox Width="30" Height="30">
                 <Image x:Name="icon" Source="{x:Bind GetCurrentIcon(Active),Mode=OneWay}"/>
             </Viewbox>
             <TextBlock x:Name="text" 
-                       Foreground="{x:Bind local:Tab.GetTextForeground(Active),Mode=OneWay}" 
+                       Foreground="{x:Bind GetTextForeground(Active),Mode=OneWay}" 
                        Margin="16,0,0,0" Text="{x:Bind Text}" 
                        VerticalAlignment="Center" 
                        FontSize="16"/>

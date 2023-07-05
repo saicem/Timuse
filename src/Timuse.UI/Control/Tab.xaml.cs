@@ -35,9 +35,9 @@ public sealed partial class Tab : UserControl
 
     public ImageSource GetCurrentIcon(bool active) => active ? this.ActiveIcon : this.InactiveIcon;
 
-    public static Brush GetContanerBackground(bool active)
+    public Brush GetContanerBackground(bool active)
         => active ? Application.Current.Resources["AccentGradientBrush"] as Brush : new SolidColorBrush(Colors.Transparent);
 
-    public static Brush GetTextForeground(bool active)
-        => Application.Current.Resources[active ? "TextOnAccentFillColorPrimaryBrush" : "TextFillColorPrimaryBrush"] as Brush;
+    public Brush GetTextForeground(bool active)
+        => this.Resources[active ? "TextOnAccentFillColorPrimaryBrush" : "TextFillColorPrimaryBrush"] as Brush;
 }

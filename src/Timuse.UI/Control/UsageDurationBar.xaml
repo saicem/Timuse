@@ -11,17 +11,17 @@
 
     <StackPanel x:Name="container" Orientation="Horizontal" Spacing="24" Background="Transparent" PointerEntered="OnPointerEntered" PointerExited="OnPointerExited">
         <Border x:Name="iconBorder" BorderThickness="2" CornerRadius="8">
-            <Rectangle Fill="{StaticResource ControlAltFillColorTertiaryBrush}" Height="56" Width="56" RadiusX="4" RadiusY="4"/>
+            <Rectangle Fill="{StaticResource ControlOnImageFillColorTertiaryBrush}" Height="56" Width="56" RadiusX="4" RadiusY="4"/>
         </Border>
         <Grid Margin="0,8">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock x:Name="appNameText" Foreground="{StaticResource ControlAltFillColorTertiaryBrush}" FontSize="16" VerticalAlignment="Center" Text="{x:Bind AppName}"/>
+            <TextBlock x:Name="appNameText" Foreground="{StaticResource TextFillColorSecondaryBrush}" FontSize="16" VerticalAlignment="Center" Text="{x:Bind AppName}"/>
             <StackPanel Orientation="Horizontal" Spacing="12" Grid.Row="1" VerticalAlignment="Center">
-                <Rectangle x:Name="ratioBar" Fill="{StaticResource ControlAltFillColorTertiaryBrush}" Width="{x:Bind ComputeBarLength(250)}" Height="8px" RadiusX="4" RadiusY="4"/>
-                <TextBlock x:Name="durationText" Foreground="{StaticResource ControlAltFillColorTertiaryBrush}" Text="{x:Bind local:UsageDurationBar.DurationToText(Duration)}"/>
+                <Rectangle x:Name="ratioBar" Fill="{StaticResource ControlStrongStrokeColorDefaultBrush}" Width="{x:Bind ComputeBarLength(250)}" Height="8px" RadiusX="4" RadiusY="4"/>
+                <TextBlock x:Name="durationText" Foreground="{StaticResource TextFillColorSecondaryBrush}" Text="{x:Bind local:UsageDurationBar.DurationToText(Duration)}"/>
             </StackPanel>
         </Grid>
     </StackPanel>
