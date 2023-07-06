@@ -25,6 +25,7 @@ public sealed partial class MainWindow : Window
     public MainWindow()
     {
         this.InitializeComponent();
+        this.SubClassing();
         this.ExtendsContentIntoTitleBar = true;
         this.SetTitleBar(this.titleBar);
 

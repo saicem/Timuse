@@ -31,7 +31,7 @@ public sealed partial class Tab : UserControl
     }
 
     private static readonly DependencyProperty ActiveProperty =
-        DependencyProperty.Register("Active", typeof(bool), typeof(bool), new PropertyMetadata(null));
+        DependencyProperty.Register("Active", typeof(bool), typeof(Tab), new PropertyMetadata(null));
 
     public ImageSource GetCurrentIcon(bool active) => active ? this.ActiveIcon : this.InactiveIcon;
 

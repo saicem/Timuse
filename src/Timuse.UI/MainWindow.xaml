@@ -40,7 +40,7 @@
                 <c:Tab x:Name="configTab" Tapped="NavigatorTabTapped" Text="设置" ActiveIcon="ms-appx:///Assets/Image/Config1.svg" InactiveIcon="ms-appx:///Assets/Image/Config0.svg" />
             </StackPanel>
             <Grid Grid.Column="1">
-                <Frame x:Name="frame"/>
+                <Frame x:Name="frame" Margin="0,0,32,0" MaxWidth="1000"/>
             </Grid>
         </Grid>
     </Grid>

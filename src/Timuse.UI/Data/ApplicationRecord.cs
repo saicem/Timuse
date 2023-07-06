@@ -1,13 +1,13 @@
-﻿namespace Timuse.UI.Data;
-
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
+
+namespace Timuse.UI.Data;
 
 [StructLayout(LayoutKind.Sequential)]
 public struct ApplicationRecord
 {
     /// <summary>
-    /// Atom unit for the time record
+    /// Atom unit for the time record.
     /// </summary>
     public const long TTick = TimeSpan.TicksPerMillisecond * 10;
 

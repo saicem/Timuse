@@ -20,20 +20,14 @@
             </StackPanel>
             <StackPanel Orientation="Vertical" Spacing="8">
                 <TextBlock FontSize="16">最为频繁</TextBlock>
-                <Grid ColumnSpacing="24" Width="auto">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <ScrollViewer BorderBrush="{StaticResource BorderBaseBrush}" BorderThickness="0.8" Height="300" VerticalScrollBarVisibility="Hidden" CornerRadius="8"  Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
-                        <StackPanel x:Name="appUsageTodayBox" Orientation="Vertical" Padding="20,16" Spacing="16">
-                            <StackPanel Padding="8" Height="32" CornerRadius="8" Orientation="Horizontal" HorizontalAlignment="Left">
-                                <TextBlock VerticalAlignment="Center">😊</TextBlock>
-                                <TextBlock FontSize="16" VerticalAlignment="Center">应用</TextBlock>
-                            </StackPanel>
+                <ScrollViewer BorderBrush="{StaticResource BorderBaseBrush}" BorderThickness="0.8" Height="300" VerticalScrollBarVisibility="Hidden" CornerRadius="8"  Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+                    <StackPanel x:Name="appUsageTodayBox" Orientation="Vertical" Padding="20,16" Spacing="16">
+                        <StackPanel Padding="8" Height="32" CornerRadius="8" Orientation="Horizontal" HorizontalAlignment="Left">
+                            <TextBlock VerticalAlignment="Center">😊</TextBlock>
+                            <TextBlock FontSize="16" VerticalAlignment="Center">应用</TextBlock>
                         </StackPanel>
-                    </ScrollViewer>
-                </Grid>
+                    </StackPanel>
+                </ScrollViewer>
             </StackPanel>
         </StackPanel>
     </ScrollViewer>
