@@ -1,8 +1,8 @@
-﻿namespace TimuseService;
-
+﻿
 using System.Runtime.InteropServices;
 using System.Text;
 
+namespace TimuseService;
 public static class TimeuseService
 {
     [UnmanagedCallersOnly(EntryPoint = nameof(OnSwitch))]
