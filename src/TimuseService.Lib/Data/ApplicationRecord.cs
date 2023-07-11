@@ -26,7 +26,7 @@ public struct ApplicationRecord
         set => this.Data = (this.Data & 0xFFFFFF_000000_FFFF) | ((ulong)value << 16);
     }
 
-    public int RecordStartAtTTicks
+    public int RecordStartTTicks
     {
         get => (int)((this.Data & 0xFFFFFF_000000_0000) >> 40);
         set => this.Data = (this.Data & 0x000000_FFFFFF_FFFF) | ((ulong)value << 40);
@@ -38,10 +38,10 @@ public struct ApplicationRecord
         set => DurationTTicks = TimeSpanToTTicks(value);
     }
 
-    public TimeSpan RecordStartAt
+    public TimeSpan StartTimeOfDay
     {
-        get => TTicksToTimeSpan(RecordStartAtTTicks);
-        set => RecordStartAtTTicks = TimeSpanToTTicks(value);
+        get => TTicksToTimeSpan(RecordStartTTicks);
+        set => RecordStartTTicks = TimeSpanToTTicks(value);
     }
 
     public static TimeSpan TTicksToTimeSpan(int tticks)
