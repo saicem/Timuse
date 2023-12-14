@@ -1,7 +1,3 @@
-#include <iostream>
-#include <Shlwapi.h>
-#include "UIAutomationFocusChangedEventHandler.h"
-
 HRESULT UIAutomationFocusChangedEventHandler::HandleFocusChangedEvent(IUIAutomationElement* sender)
 {
 	try

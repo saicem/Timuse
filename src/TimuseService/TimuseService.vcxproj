@@ -105,6 +105,9 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <BrowseInformation>true</BrowseInformation>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -112,7 +115,7 @@
       <AdditionalDependencies>version.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>dotnet publish ..\TimuseService.Lib\TimuseService.Lib.csproj -f net7.0 --self-contained true -r win-x64 -c Debug -o $(OutputPath)</Command>
+      <Command>dotnet publish ..\TimuseService.Lib\TimuseService.Lib.csproj -f net8.0 --self-contained true -r win-x64 -c Debug -o $(OutputPath)</Command>
     </PostBuildEvent>
     <Bscmake>
       <PreserveSbr>true</PreserveSbr>
@@ -126,6 +129,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -135,14 +141,20 @@
       <AdditionalDependencies>version.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>dotnet publish ..\TimuseService.Lib\TimuseService.Lib.csproj -f net7.0 --self-contained true -r win-x64 -c Release -o $(OutputPath)</Command>
+      <Command>dotnet publish ..\TimuseService.Lib\TimuseService.Lib.csproj -f net8.0 --self-contained true -r win-x64 -c Release -o $(OutputPath)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="TimuseService.cpp" />
     <ClCompile Include="UIAutomationFocusChangedEventHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="TimuseErr.h" />
     <ClInclude Include="UIAutomationFocusChangedEventHandler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

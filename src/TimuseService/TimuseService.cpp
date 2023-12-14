@@ -1,26 +1,24 @@
-﻿#include <iostream>
-#include <UIAutomation.h>
-#include "UIAutomationFocusChangedEventHandler.h"
+﻿using namespace Timuse;
 
-HRESULT InitializeUIAutomation(IUIAutomation** ppAutomation);
-HRESULT InitializeApplicationListener(void);
-HRESULT PreventMultiInstance();
+TimuseErr InitializeUIAutomation(IUIAutomation** ppAutomation);
+TimuseErr InitializeApplicationListener(void);
+TimuseErr PreventMultiInstance();
 void CreateConsoleWhileDebug(void);
 
-int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
+int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
     CreateConsoleWhileDebug();
 
-    HRESULT hr = S_OK;
-    hr = PreventMultiInstance();
-    if (FAILED(hr))
+    TimuseErr errCode = { };
+    errCode = PreventMultiInstance();
+    if (!IsSuccess(errCode))
     {
         std::cout << "timuse service already launched." << std::endl;
-        return hr;
+        return errCode;
     }
 
-    hr = InitializeApplicationListener();
-    if (FAILED(hr)) return hr;
+    errCode = InitializeApplicationListener();
+    if (!IsSuccess(errCode)) return errCode;
 
     MSG msg = { };
     while (GetMessage(&msg, NULL, 0, 0))
@@ -31,53 +29,55 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
     return 0;
 }
 
-HRESULT InitializeApplicationListener()
+TimuseErr InitializeApplicationListener()
 {
     HRESULT hr;
     hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
-    if (FAILED(hr)) return -1;
+    if (FAILED(hr)) return TimuseErr::ComInitializeFailed;
 
     IUIAutomation* pUIAutomation;
     hr = InitializeUIAutomation(&pUIAutomation);
-    if (FAILED(hr)) return -2;
+    if (FAILED(hr)) return TimuseErr::FailedToInitializeUIAutomation;
 
     IUIAutomationElement* pUIElementRoot;
 
     hr = pUIAutomation->GetRootElement(&pUIElementRoot);
-    if (FAILED(hr)) return -3;
+    if (FAILED(hr)) return TimuseErr::FailedToGetRootElement;
 
     HMODULE hLibService = LoadLibrary(L"TimuseService.Lib.dll");
-    if (hLibService == NULL) return -4;
+    if (hLibService == NULL) return TimuseErr::FailedToLoadLibrary;
     auto onSwitch = (FOREGROUNDAPPLICATIONSWITCHEDPROC)GetProcAddress(hLibService, "OnSwitch");
     auto initService = GetProcAddress(hLibService, "InitService");
-    if (!initService || !onSwitch) return -5;
+    if (!initService || !onSwitch) return TimuseErr::FailedToGetProcAddress;
 
     initService();
 
     UIAutomationFocusChangedEventHandler* pFocusHandler = new UIAutomationFocusChangedEventHandler(onSwitch);
     if (!pFocusHandler)
     {
-        return E_OUTOFMEMORY;
+        return TimuseErr::OutOfMemory;
     }
     pUIAutomation->AddFocusChangedEventHandler(NULL, pFocusHandler);
 
-    return S_OK;
+    return TimuseErr::Success;
 }
 
-HRESULT InitializeUIAutomation(IUIAutomation** ppAutomation)
+TimuseErr InitializeUIAutomation(IUIAutomation** ppAutomation)
 {
-    return CoCreateInstance(CLSID_CUIAutomation, NULL,
+    HRESULT hr = CoCreateInstance(CLSID_CUIAutomation, NULL,
         CLSCTX_INPROC_SERVER, IID_IUIAutomation,
         reinterpret_cast<void**>(ppAutomation));
+
+    return FAILED(hr) ? TimuseErr::CoCreateInstanceFailed : TimuseErr::Success;
 }
 
-HRESULT PreventMultiInstance()
+TimuseErr PreventMultiInstance()
 {
     HANDLE hMutex = NULL;
     hMutex = OpenMutex(MUTEX_ALL_ACCESS, FALSE, L"MUTEXOFTIMEUSESERVICE");
     if (NULL == hMutex) hMutex = CreateMutex(0, FALSE, L"MUTEXOFTIMEUSESERVICE");
-    else return -1;
-    return S_OK;
+    else return TimuseErr::AlreadyLaunched;
+    return TimuseErr::Success;
 }
 
 void CreateConsoleWhileDebug()

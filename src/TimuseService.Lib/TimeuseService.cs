@@ -24,15 +24,31 @@ public static class TimeuseService
     public static void InitService()
     {
         Console.WriteLine("Timuse service starting...");
-        Console.WriteLine("Initializing data folder");
+        Console.WriteLine("Initializing data folder...");
         InitFolder();
-        Console.WriteLine("Initializing process map");
+        Console.WriteLine("Initializing process map...");
         InitProcessMap();
-        Console.WriteLine("Initializing record");
+        Console.WriteLine("Initializing record...");
         InitRecord();
-        Console.WriteLine("Initializing index");
+        Console.WriteLine("Initializing index...");
         InitIndex();
         Console.WriteLine("Timuse service started.");
+    }
+
+    [UnmanagedCallersOnly(EntryPoint = nameof(OnSwitch))]
+    public static void OnSwitch(nint lpName, nint lpPath)
+    {
+        var now = DateTime.UtcNow;
+        var name = Marshal.PtrToStringUni(lpName);
+        var path = Marshal.PtrToStringUni(lpPath);
+
+        if (name == null || path == null) return;
+
+        HandleStatistics(now);
+
+        focusStartAt = now;
+        recordingAppName = name;
+        recordingAppPath = path;
     }
 
     private static void InitFolder()
@@ -80,27 +96,11 @@ public static class TimeuseService
         else
         {
             var startDateDays = new BinaryReader(stream, Encoding.UTF8).ReadUInt32();
-            var indexCount = (uint)(stream.Length / Marshal.SizeOf<uint>());
+            var indexCount = (uint)(stream.Length / sizeof(uint));
             indexEndDays = startDateDays + indexCount - 1u;
             Console.WriteLine($"Index start date: {new DateTime(TimeSpan.TicksPerDay * startDateDays):yyyy-MM-dd}");
         }
         Console.WriteLine($"Index end date: {new DateTime(TimeSpan.TicksPerDay * indexEndDays):yyyy-MM-dd}");
-    }
-
-    [UnmanagedCallersOnly(EntryPoint = nameof(OnSwitch))]
-    public static void OnSwitch(nint lpName, nint lpPath)
-    {
-        var now = DateTime.UtcNow;
-        var name = Marshal.PtrToStringUni(lpName);
-        var path = Marshal.PtrToStringUni(lpPath);
-
-        if (name == null || path == null) return;
-
-        HandleStatistics(now);
-
-        focusStartAt = now;
-        recordingAppName = name;
-        recordingAppPath = path;
     }
 
     private static void HandleStatistics(DateTime focusEndAt)
