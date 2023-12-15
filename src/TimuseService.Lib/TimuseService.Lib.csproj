@@ -1,18 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<PublishAot>true</PublishAot>
 	<PublishTrimmed>true</PublishTrimmed>
+	<Platforms>x64;AnyCPU</Platforms>
   </PropertyGroup>
   <PropertyGroup Condition="'$Configuration'=='Release'">
 	<DebuggerSupport>false</DebuggerSupport>
 	<EnableUnsafeBinaryFormatterSerialization>false</EnableUnsafeBinaryFormatterSerialization>
 	<EnableUnsafeUTF7Encoding>false</EnableUnsafeUTF7Encoding>
 	<EventSourceSupport>false</EventSourceSupport>
+	<HttpActivityPropagationSupport>false</HttpActivityPropagationSupport>
 	<InvariantGlobalization>true</InvariantGlobalization>
 	<MetadataUpdaterSupport>false</MetadataUpdaterSupport>
+	<UseNativeHttpHandler>true</UseNativeHttpHandler>
+	<StackTraceSupport>false</StackTraceSupport>
 	<UseSystemResourceKeys>true</UseSystemResourceKeys>
+	<OptimizationPreference>Size</OptimizationPreference>
+	<TrimmerRemoveSymbols>true</TrimmerRemoveSymbols>
   </PropertyGroup>
 </Project>
