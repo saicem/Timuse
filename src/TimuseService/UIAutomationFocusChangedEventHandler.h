@@ -1,7 +1,8 @@
 #pragma once
 #include <UIAutomation.h>
+#include "AppRecorder.h"
 
-typedef void (*FOREGROUNDAPPLICATIONSWITCHEDPROC)(LPVOID lpName, LPVOID lpPath);
+typedef void (*FOREGROUNDAPPLICATIONSWITCHEDPROC)(BSTR lpName, BSTR lpPath);
 
 typedef struct
 {
@@ -19,19 +20,19 @@ private:
 
     DWORD _lastPid;
     LPLANGANDCODEPAGE _lpLangAndCodePage;
-    FOREGROUNDAPPLICATIONSWITCHEDPROC _applicationSwitchHandler;
 
     WCHAR _fileName[MAX_PATH] = { 0 };
     WCHAR _filePath[MAX_PATH] = { 0 };
     WCHAR lpCmdBuffer[41] = { 0 };
 
     HRESULT GetFileInfoByProcessId(DWORD pid, BSTR* fileName, BSTR* filePath);
+    FOREGROUNDAPPLICATIONSWITCHEDPROC _handler;
 
 public:
-    UIAutomationFocusChangedEventHandler(FOREGROUNDAPPLICATIONSWITCHEDPROC applicationSwitchedHandler)
+    UIAutomationFocusChangedEventHandler(FOREGROUNDAPPLICATIONSWITCHEDPROC handler)
         : _refCount(1), _lastPid(0), _fileName(), _filePath(), lpCmdBuffer(), _lpLangAndCodePage(NULL)
     {
-        _applicationSwitchHandler = applicationSwitchedHandler;
+        _handler = handler;
     }
 
     virtual ULONG STDMETHODCALLTYPE AddRef() override

@@ -59,7 +59,7 @@ public static class TimeuseService
     private static void InitProcessMap()
     {
         using var stream = new FileStream(pathProcessMap, FileMode.OpenOrCreate, FileAccess.Read);
-        using var reader = new BinaryReader(stream, Encoding.UTF8);
+        using var reader = new BinaryReader(stream, Encoding.Unicode);
 
         ushort id = 0;
         // read exsisting application info
@@ -80,7 +80,7 @@ public static class TimeuseService
     {
         var stream = new FileStream(pathRecord, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
         stream.Seek(stream.Length, SeekOrigin.Begin);
-        recordWriter = new BinaryWriter(stream, Encoding.UTF8);
+        recordWriter = new BinaryWriter(stream, Encoding.Unicode);
     }
 
     private static void InitIndex()
@@ -90,12 +90,12 @@ public static class TimeuseService
         {
             var now = DateTime.UtcNow;
             indexEndDays = now.TotalDays();
-            new BinaryWriter(stream, Encoding.UTF8).Write(indexEndDays);
+            new BinaryWriter(stream, Encoding.Unicode).Write(indexEndDays);
             Console.WriteLine($"Index file initialize with start date: {now:yyyy-MM-dd}");
         }
         else
         {
-            var startDateDays = new BinaryReader(stream, Encoding.UTF8).ReadUInt32();
+            var startDateDays = new BinaryReader(stream, Encoding.Unicode).ReadUInt32();
             var indexCount = (uint)(stream.Length / sizeof(uint));
             indexEndDays = startDateDays + indexCount - 1u;
             Console.WriteLine($"Index start date: {new DateTime(TimeSpan.TicksPerDay * startDateDays):yyyy-MM-dd}");
@@ -158,7 +158,7 @@ public static class TimeuseService
     {
         using var stream = File.OpenWrite(pathProcessMap);
         stream.Seek(stream.Length, SeekOrigin.Begin);
-        using var writer = new BinaryWriter(stream, Encoding.UTF8);
+        using var writer = new BinaryWriter(stream, Encoding.Unicode);
         writer.Write(id);
         writer.Write(path);
         writer.Write(name);
@@ -173,7 +173,7 @@ public static class TimeuseService
         if (todayTotalDays < indexEndDays) throw new Exception("Index file error!");
         using var stream = new FileStream(pathRecord, FileMode.OpenOrCreate, FileAccess.Write, FileShare.Read);
         stream.Seek(stream.Length, SeekOrigin.Current);
-        using var writer = new BinaryWriter(stream, Encoding.UTF8);
+        using var writer = new BinaryWriter(stream, Encoding.Unicode);
         var indexPosition = (uint)recordWriter!.BaseStream.Length;
         for (uint i = indexEndDays; i < todayTotalDays; i++)
         {

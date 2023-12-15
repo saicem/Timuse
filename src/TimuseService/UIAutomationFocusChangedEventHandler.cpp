@@ -1,3 +1,5 @@
+#include <memory>
+
 HRESULT UIAutomationFocusChangedEventHandler::HandleFocusChangedEvent(IUIAutomationElement* sender)
 {
 	try
@@ -11,7 +13,8 @@ HRESULT UIAutomationFocusChangedEventHandler::HandleFocusChangedEvent(IUIAutomat
 		{
 			BSTR fileName, filePath;
 			hr = GetFileInfoByProcessId(currentPid, &fileName, &filePath);
-			if (SUCCEEDED(hr)) _applicationSwitchHandler(fileName, filePath);
+
+			if (SUCCEEDED(hr)) _handler(fileName, filePath);
 			_lastPid = currentPid;
 		}
 
@@ -32,6 +35,9 @@ HRESULT UIAutomationFocusChangedEventHandler::GetFileInfoByProcessId(DWORD pid, 
 	{
 		return -1;
 	}
+	
+	memset(_fileName, 0, sizeof(_fileName));
+	memset(_filePath, 0, sizeof(_filePath));
 
 	DWORD dwPathLength = MAX_PATH;
 	QueryFullProcessImageName(hProcess, 0, _filePath, &dwPathLength);

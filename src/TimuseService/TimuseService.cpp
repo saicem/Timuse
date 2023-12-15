@@ -1,9 +1,15 @@
-﻿using namespace Timuse;
+﻿#include "MediaListener.h"
+#include "AppRecorder.h"
+#include "BinaryHelper.h"
+
+using namespace Timuse;
 
 TimuseErr InitializeUIAutomation(IUIAutomation** ppAutomation);
 TimuseErr InitializeApplicationListener(void);
 TimuseErr PreventMultiInstance();
 void CreateConsoleWhileDebug(void);
+
+std::shared_ptr<AppRecorder> spAppRecorder = nullptr;
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
@@ -17,6 +23,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE, _In_ LPSTR lpCm
         return errCode;
     }
 
+    //winrt::init_apartment();
+    spAppRecorder = std::make_shared<AppRecorder>();
     errCode = InitializeApplicationListener();
     if (!IsSuccess(errCode)) return errCode;
 
@@ -27,6 +35,21 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE, _In_ LPSTR lpCm
         DispatchMessage(&msg);
     }
     return 0;
+}
+
+void HandleFocusChangedEvent(BSTR lpName, BSTR lpPath)
+{
+    if (!lpName || !lpPath) return;
+
+    int cch = wcslen(lpName);
+    std::shared_ptr<TCHAR> spName = std::make_shared<TCHAR>(cch + 1);
+    wcscpy_s(spName.get(), static_cast<size_t>(cch) + 1, lpName);
+
+    cch = wcslen(lpPath);
+    std::shared_ptr<TCHAR> spPath = std::make_shared<TCHAR>(cch + 1);
+    wcscpy_s(spPath.get(), static_cast<size_t>(cch) + 1, lpPath);
+
+    spAppRecorder->Switch(spName, spPath);
 }
 
 TimuseErr InitializeApplicationListener()
@@ -44,15 +67,8 @@ TimuseErr InitializeApplicationListener()
     hr = pUIAutomation->GetRootElement(&pUIElementRoot);
     if (FAILED(hr)) return TimuseErr::FailedToGetRootElement;
 
-    HMODULE hLibService = LoadLibrary(L"TimuseService.Lib.dll");
-    if (hLibService == NULL) return TimuseErr::FailedToLoadLibrary;
-    auto onSwitch = (FOREGROUNDAPPLICATIONSWITCHEDPROC)GetProcAddress(hLibService, "OnSwitch");
-    auto initService = GetProcAddress(hLibService, "InitService");
-    if (!initService || !onSwitch) return TimuseErr::FailedToGetProcAddress;
+    UIAutomationFocusChangedEventHandler* pFocusHandler = new UIAutomationFocusChangedEventHandler(HandleFocusChangedEvent);
 
-    initService();
-
-    UIAutomationFocusChangedEventHandler* pFocusHandler = new UIAutomationFocusChangedEventHandler(onSwitch);
     if (!pFocusHandler)
     {
         return TimuseErr::OutOfMemory;
@@ -74,8 +90,8 @@ TimuseErr InitializeUIAutomation(IUIAutomation** ppAutomation)
 TimuseErr PreventMultiInstance()
 {
     HANDLE hMutex = NULL;
-    hMutex = OpenMutex(MUTEX_ALL_ACCESS, FALSE, L"MUTEXOFTIMEUSESERVICE");
-    if (NULL == hMutex) hMutex = CreateMutex(0, FALSE, L"MUTEXOFTIMEUSESERVICE");
+    hMutex = OpenMutex(MUTEX_ALL_ACCESS, FALSE, TEXT("MUTEXOFTIMEUSESERVICE"));
+    if (NULL == hMutex) hMutex = CreateMutex(0, FALSE, TEXT("MUTEXOFTIMEUSESERVICE"));
     else return TimuseErr::AlreadyLaunched;
     return TimuseErr::Success;
 }
@@ -84,12 +100,13 @@ void CreateConsoleWhileDebug()
 {
     int argCnt;
     LPWSTR* argv = CommandLineToArgvW(GetCommandLine(), &argCnt);
-    if (argv != NULL && argCnt >= 2 && wcscmp(argv[1], L"debug") == 0)
+    if (argv != NULL && argCnt >= 2 && wcscmp(argv[1], TEXT("debug")) == 0)
     {
         AllocConsole();
         FILE* stream;
         freopen_s(&stream, "CON", "r", stdin);
         freopen_s(&stream, "CON", "w", stdout);
-        SetConsoleTitle(L"Timuse Service Console");
+        SetConsoleTitle(TEXT("Timuse Service Console"));
+        std::wcout.imbue(std::locale(""));
     }
 }
