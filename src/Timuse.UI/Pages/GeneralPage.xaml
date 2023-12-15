@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page x:Class="Timuse.UI.Pages.GeneralPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:Timuse.UI.Pages"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:c="using:Timuse.UI.Controls"
+      mc:Ignorable="d">
+
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+        <StackPanel Orientation="Vertical" Spacing="8">
+            <StackPanel Orientation="Horizontal" Spacing="8" Width="auto">
+                <StackPanel.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Height" Value="80"/>
+                        <Setter Property="Width" Value="Auto"/>
+                        <Setter Property="CornerRadius" Value="4"/>
+                    </Style>
+                </StackPanel.Resources>
+                <Button>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Rectangle Grid.RowSpan="2" Width="60" Height="60" Fill="Black"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0">16个</TextBlock>
+                        <TextBlock Grid.Column="1" Grid.Row="1">今日使用</TextBlock>
+                    </Grid>
+                </Button>
+                <Button>
+                    <TextBlock>本周平均</TextBlock>
+                </Button>
+                <Button>
+                    <TextBlock>使用应用</TextBlock>
+                </Button>
+            </StackPanel>
+            <ScrollViewer BorderBrush="{StaticResource BorderBaseBrush}" BorderThickness="0.8" Height="300" VerticalScrollBarVisibility="Hidden" CornerRadius="8"  Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+                <ListBox ItemsSource="{x:Bind AppUsageBarList}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:DataType="local:AppUsageBarModel">
+                            <c:UsageDurationBar AppName="{x:Bind AppName}" Ratio="{x:Bind Ratio}" Duration="{x:Bind Duration}" Icon="{x:Bind Icon}" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

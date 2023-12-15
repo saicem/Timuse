@@ -9,13 +9,13 @@ using System;
 using System.Collections.Specialized;
 using System.ComponentModel;
 
-namespace Timuse.UI.Control;
+namespace Timuse.UI.Controls;
 
 public sealed partial class Tab : UserControl
 {
     public Tab()
     {
-        this.InitializeComponent();
+        InitializeComponent();
     }
 
     public string Text { set; get; }
@@ -26,18 +26,18 @@ public sealed partial class Tab : UserControl
 
     public bool Active
     {
-        get { return (bool)this.GetValue(ActiveProperty); }
-        set { this.SetValue(ActiveProperty, value); }
+        get { return (bool)GetValue(ActiveProperty); }
+        set { SetValue(ActiveProperty, value); }
     }
 
     private static readonly DependencyProperty ActiveProperty =
         DependencyProperty.Register("Active", typeof(bool), typeof(Tab), new PropertyMetadata(null));
 
-    public ImageSource GetCurrentIcon(bool active) => active ? this.ActiveIcon : this.InactiveIcon;
+    public ImageSource GetCurrentIcon(bool active) => active ? ActiveIcon : InactiveIcon;
 
     public Brush GetContanerBackground(bool active)
         => active ? Application.Current.Resources["AccentGradientBrush"] as Brush : new SolidColorBrush(Colors.Transparent);
 
     public Brush GetTextForeground(bool active)
-        => this.Resources[active ? "TextOnAccentFillColorPrimaryBrush" : "TextFillColorPrimaryBrush"] as Brush;
+        => Resources[active ? "TextOnAccentFillColorPrimaryBrush" : "TextFillColorPrimaryBrush"] as Brush;
 }

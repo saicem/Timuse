@@ -1,22 +1,7 @@
-using Microsoft.UI;
-using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Timuse.UI.Control;
-using Timuse.UI.Page;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using WinRT.Interop;
+using Timuse.UI.Controls;
+using Timuse.UI.Pages;
 
 namespace Timuse.UI;
 
@@ -24,13 +9,13 @@ public sealed partial class MainWindow : Window
 {
     public MainWindow()
     {
-        this.InitializeComponent();
-        this.SubClassing();
-        this.ExtendsContentIntoTitleBar = true;
-        this.SetTitleBar(this.titleBar);
+        InitializeComponent();
+        SubClassing();
+        ExtendsContentIntoTitleBar = true;
+        SetTitleBar(titleBar);
 
-        this.lastActiveTab = this.generalTab;
-        this.frame.Navigate(typeof(GeneralPage));
+        lastActiveTab = generalTab;
+        frame.Navigate(typeof(GeneralPage));
     }
 
     private Tab lastActiveTab;
@@ -40,26 +25,30 @@ public sealed partial class MainWindow : Window
         var activeTab = sender as Tab;
         if (!activeTab.Active)
         {
-            this.Navigate(activeTab);
-            if (this.lastActiveTab != null)
+            Navigate(activeTab);
+            if (lastActiveTab != null)
             {
-                this.lastActiveTab.Active = false;
+                lastActiveTab.Active = false;
             }
 
             activeTab.Active = true;
-            this.lastActiveTab = activeTab;
+            lastActiveTab = activeTab;
         }
     }
 
     private void Navigate(Tab tab)
     {
-        if (tab == this.generalTab)
+        if (tab == generalTab)
         {
-            this.frame.Navigate(typeof(GeneralPage));
+            frame.Navigate(typeof(GeneralPage));
         }
-        else if (tab == this.statisticTab)
+        //else if (tab == this.statisticTab)
+        //{
+        //    frame.Navigate(typeof(StatisticPage));
+        //}
+        else if (tab == detailTab)
         {
-            //frame.Navigate(typeof(StatisticPage));
+            frame.Navigate(typeof(DetailPage));
         }
     }
 }

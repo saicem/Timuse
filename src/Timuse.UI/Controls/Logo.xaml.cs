@@ -13,12 +13,12 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 
-namespace Timuse.UI.Control;
+namespace Timuse.UI.Controls;
 
 public sealed partial class Logo : UserControl
 {
     public Logo()
     {
-        this.InitializeComponent();
+        InitializeComponent();
     }
 }

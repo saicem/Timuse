@@ -23,8 +23,8 @@ public sealed partial class MainWindow : Window
     {
         var hwnd = this.As<IWindowNative>().WindowHandle;
 
-        this.newWndProc = new WinProc(this.NewWindowProc);
-        this.oldWndProc = SetWindowLongPtr(hwnd, PInvoke.User32.WindowLongIndexFlags.GWL_WNDPROC, this.newWndProc);
+        newWndProc = new WinProc(NewWindowProc);
+        oldWndProc = SetWindowLongPtr(hwnd, PInvoke.User32.WindowLongIndexFlags.GWL_WNDPROC, newWndProc);
     }
 
     private readonly int minWidth = 800;
@@ -49,13 +49,13 @@ public sealed partial class MainWindow : Window
                 float scalingFactor = (float)dpi / 96;
 
                 MINMAXINFO minMaxInfo = Marshal.PtrToStructure<MINMAXINFO>(lParam);
-                minMaxInfo.PtMinTrackSize.x = (int)(this.minWidth * scalingFactor);
-                minMaxInfo.PtMinTrackSize.y = (int)(this.minHeight * scalingFactor);
+                minMaxInfo.PtMinTrackSize.x = (int)(minWidth * scalingFactor);
+                minMaxInfo.PtMinTrackSize.y = (int)(minHeight * scalingFactor);
                 Marshal.StructureToPtr(minMaxInfo, lParam, true);
                 break;
         }
 
-        return CallWindowProc(this.oldWndProc, hWnd, msg, wParam, lParam);
+        return CallWindowProc(oldWndProc, hWnd, msg, wParam, lParam);
     }
 
     [ComImport]

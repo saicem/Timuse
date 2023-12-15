@@ -3,7 +3,8 @@ using Microsoft.Windows.AppLifecycle;
 using System;
 using System.Diagnostics;
 using System.IO;
-using Timuse.UI.Data;
+using Timuse.UI.DataContexts;
+using Timuse.UI.ViewModels;
 
 namespace Timuse.UI;
 
@@ -11,13 +12,11 @@ public partial class App : Application
 {
     private const string AppInstanceKey = nameof(AppInstanceKey);
 
-    public static DataLoader DataLoader { get; private set; }
+    public static AppUsageModel AppUsageModel { get; private set; } = new AppUsageModel();
 
     public App()
     {
-        this.InitializeComponent();
-
-        DataLoader = new DataLoader();
+        InitializeComponent();
 
         // InitializeService();
     }
@@ -57,8 +56,8 @@ public partial class App : Application
             Process.GetCurrentProcess().Kill();
         }
 
-        this.window = new MainWindow();
-        this.window.Activate();
+        window = new MainWindow();
+        window.Activate();
     }
 
     private Window window;
