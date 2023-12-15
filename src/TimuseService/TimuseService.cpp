@@ -23,8 +23,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE, _In_ LPSTR lpCm
         return errCode;
     }
 
-    //winrt::init_apartment();
+    winrt::init_apartment();
     spAppRecorder = std::make_shared<AppRecorder>();
+
+    // MediaListener mediaListener;
+    
     errCode = InitializeApplicationListener();
     if (!IsSuccess(errCode)) return errCode;
 
@@ -40,23 +43,14 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE, _In_ LPSTR lpCm
 void HandleFocusChangedEvent(BSTR lpName, BSTR lpPath)
 {
     if (!lpName || !lpPath) return;
-
-    int cch = wcslen(lpName);
-    std::shared_ptr<TCHAR> spName = std::make_shared<TCHAR>(cch + 1);
-    wcscpy_s(spName.get(), static_cast<size_t>(cch) + 1, lpName);
-
-    cch = wcslen(lpPath);
-    std::shared_ptr<TCHAR> spPath = std::make_shared<TCHAR>(cch + 1);
-    wcscpy_s(spPath.get(), static_cast<size_t>(cch) + 1, lpPath);
-
-    spAppRecorder->Switch(spName, spPath);
+    spAppRecorder->Switch(lpName, lpPath);
 }
 
 TimuseErr InitializeApplicationListener()
 {
     HRESULT hr;
-    hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
-    if (FAILED(hr)) return TimuseErr::ComInitializeFailed;
+    //hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
+    //if (FAILED(hr)) return TimuseErr::ComInitializeFailed;
 
     IUIAutomation* pUIAutomation;
     hr = InitializeUIAutomation(&pUIAutomation);

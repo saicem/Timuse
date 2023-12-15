@@ -5,7 +5,7 @@ public:
 	AppRecorder();
 	~AppRecorder();
 
-	void Switch(const std::shared_ptr<TCHAR> strName, const std::shared_ptr<TCHAR> strPath);
+	void Switch(const BSTR strName, const BSTR strPath);
 
 private:
 	HANDLE hRecordFile;
@@ -14,14 +14,14 @@ private:
 	
 	uint32_t indexedDays = 0;
 	std::shared_ptr<std::chrono::system_clock::time_point> spFocusStartAt = nullptr;
-	std::shared_ptr<TCHAR> spFocusAppName = nullptr, spFocusAppPath = nullptr;
+	BSTR lpFocusAppName = nullptr, lpFocusAppPath = nullptr;
 
 	mutable std::unordered_map<std::wstring, uint16_t> mapApp;
 	mutable uint16_t currentMaxId = 0;
 
 	void WriteRecord(uint32_t day, uint16_t appId, const std::chrono::system_clock::duration& startTimeOfDay, const std::chrono::system_clock::duration& duration) const;
 	void TrackIndex(uint32_t today) const;
-	void SaveApplicationInfo(const std::shared_ptr<TCHAR> strName, const std::shared_ptr<TCHAR> strPath, uint16_t id) const;
+	void SaveApplicationInfo(const BSTR strName, const BSTR strPath, uint16_t id) const;
 	uint16_t GetCurrentApplicationId() const;
 	
 	std::wstring GetUniString(const LPTSTR value, int cch);
