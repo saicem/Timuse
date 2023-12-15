@@ -161,7 +161,7 @@ AppRecorder::~AppRecorder()
 	CloseHandle(hIndexFile);
 }
 
-void AppRecorder::Switch(const std::shared_ptr<TCHAR> strName, const std::shared_ptr<TCHAR> strPath)
+void AppRecorder::Switch(BSTR strName, BSTR strPath)
 {
 	auto now = std::chrono::system_clock::now();
 
@@ -170,7 +170,7 @@ void AppRecorder::Switch(const std::shared_ptr<TCHAR> strName, const std::shared
 		return;
 	}
 
-	if (/*!_tcsclen(strName.get()) == 0 && */spFocusAppName && spFocusAppPath)
+	if (/*!_tcsclen(strName.get()) == 0 && */lpFocusAppName && lpFocusAppPath)
 	{
 		auto id = GetCurrentApplicationId();
 		
@@ -196,8 +196,8 @@ void AppRecorder::Switch(const std::shared_ptr<TCHAR> strName, const std::shared
 	}
 
 	spFocusStartAt = std::make_shared<std::chrono::system_clock::time_point>(now);
-	spFocusAppName = strName;
-	spFocusAppPath = strPath;
+	lpFocusAppName = strName;
+	lpFocusAppPath = strPath;
 }
 
 void AppRecorder::WriteRecord(uint32_t day, uint16_t appId, const std::chrono::system_clock::duration& startTimeOfDay, const std::chrono::system_clock::duration& duration) const
@@ -230,14 +230,14 @@ void AppRecorder::WriteRecord(uint32_t day, uint16_t appId, const std::chrono::s
 		throw std::exception("Failed to flush record file");
 	}
 
-	std::wcout << "[" << startTimeOfDay << "] <" << duration << "> " << appId << ": " << spFocusAppName << std::endl;
+	std::wcout << "[" << startTimeOfDay << "] <" << duration << "> " << appId << ": " << lpFocusAppName << std::endl;
 }
 
 void AppRecorder::TrackIndex(uint32_t today) const
 {
 }
 
-void AppRecorder::SaveApplicationInfo(const std::shared_ptr<TCHAR> strName, const std::shared_ptr<TCHAR> strPath, uint16_t id) const
+void AppRecorder::SaveApplicationInfo(const BSTR strName, const BSTR strPath, uint16_t id) const
 {
 	if (hMapFile == INVALID_HANDLE_VALUE)
 	{
@@ -252,9 +252,9 @@ void AppRecorder::SaveApplicationInfo(const std::shared_ptr<TCHAR> strName, cons
 	// write app id
 	binaryHelper.WriteUInt16(id);
 	// write app path
-	binaryHelper.WriteCchString(strPath.get(), MAX_PATH);
+	binaryHelper.WriteCchString(strPath, MAX_PATH);
 	// write app name
-	binaryHelper.WriteCchString(strName.get(), MAX_PATH);
+	binaryHelper.WriteCchString(strName, MAX_PATH);
 
 	// flush map file
 	auto success = FlushFileBuffers(hMapFile);
@@ -267,7 +267,7 @@ void AppRecorder::SaveApplicationInfo(const std::shared_ptr<TCHAR> strName, cons
 uint16_t AppRecorder::GetCurrentApplicationId() const
 {
 	// get current app id from map
-	auto iter = mapApp.find(spFocusAppPath.get());
+	auto iter = mapApp.find(lpFocusAppPath);
 	if (iter != mapApp.end())
 	{
 		return iter->second;
@@ -275,8 +275,8 @@ uint16_t AppRecorder::GetCurrentApplicationId() const
 	
 	// if not found, create new app id
 	currentMaxId++;
-	SaveApplicationInfo(spFocusAppName, spFocusAppPath, currentMaxId);
-	mapApp[spFocusAppPath.get()] = currentMaxId;
+	SaveApplicationInfo(lpFocusAppName, lpFocusAppPath, currentMaxId);
+	mapApp[lpFocusAppPath] = currentMaxId;
 	
 	return currentMaxId;
 }

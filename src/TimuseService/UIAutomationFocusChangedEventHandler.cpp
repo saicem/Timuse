@@ -11,7 +11,7 @@ HRESULT UIAutomationFocusChangedEventHandler::HandleFocusChangedEvent(IUIAutomat
 
 		if (currentPid != _lastPid)
 		{
-			BSTR fileName, filePath;
+			BSTR fileName = nullptr, filePath = nullptr;
 			hr = GetFileInfoByProcessId(currentPid, &fileName, &filePath);
 
 			if (SUCCEEDED(hr)) _handler(fileName, filePath);
