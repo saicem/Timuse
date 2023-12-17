@@ -161,6 +161,20 @@ AppRecorder::~AppRecorder()
 	CloseHandle(hIndexFile);
 }
 
+bool AppRecorder::GetAppNameById(uint16_t appId, std::wstring& appName) const
+{
+	for (auto& appInfo : mapApp)
+	{
+		if (appInfo.second == appId)
+		{
+			appName = appInfo.first;
+			return true;
+		}
+	}
+
+	return false;
+}
+
 void AppRecorder::Switch(BSTR strName, BSTR strPath)
 {
 	auto now = std::chrono::system_clock::now();
@@ -170,10 +184,10 @@ void AppRecorder::Switch(BSTR strName, BSTR strPath)
 		return;
 	}
 
-	if (/*!_tcsclen(strName.get()) == 0 && */lpFocusAppName && lpFocusAppPath)
+	auto id = GetApplicationId(strName, strPath);
+
+	if (lastAppId != 0)
 	{
-		auto id = GetCurrentApplicationId();
-		
 		auto startDays = (uint32_t)(std::chrono::duration_cast<std::chrono::hours>(spFocusStartAt->time_since_epoch()).count() / 24);
 		auto endDays = (uint32_t)(std::chrono::duration_cast<std::chrono::hours>(now.time_since_epoch()).count() / 24);
 		
@@ -182,22 +196,22 @@ void AppRecorder::Switch(BSTR strName, BSTR strPath)
 
 		if (startDays == endDays)
 		{
-			WriteRecord(startDays, id, startOfDay, endOfDay - startOfDay);
+			WriteRecord(startDays, lastAppId, startOfDay, endOfDay - startOfDay);
 		}
 		else
 		{
-			WriteRecord(startDays, id, startOfDay, std::chrono::hours(24) - startOfDay);
+			WriteRecord(startDays, lastAppId, startOfDay, std::chrono::hours(24) - startOfDay);
 			for (auto day = startDays + 1; day < endDays; day++)
 			{
-				WriteRecord(day, id, std::chrono::milliseconds(0), std::chrono::hours(24));
+				WriteRecord(day, lastAppId, std::chrono::milliseconds(0), std::chrono::hours(24));
 			}
-			WriteRecord(endDays, id, std::chrono::milliseconds(0), endOfDay);
+			WriteRecord(endDays, lastAppId, std::chrono::milliseconds(0), endOfDay);
 		}
 	}
 
+	lastAppId = id;
+
 	spFocusStartAt = std::make_shared<std::chrono::system_clock::time_point>(now);
-	lpFocusAppName = strName;
-	lpFocusAppPath = strPath;
 }
 
 void AppRecorder::WriteRecord(uint32_t day, uint16_t appId, const std::chrono::system_clock::duration& startTimeOfDay, const std::chrono::system_clock::duration& duration) const
@@ -230,7 +244,10 @@ void AppRecorder::WriteRecord(uint32_t day, uint16_t appId, const std::chrono::s
 		throw std::exception("Failed to flush record file");
 	}
 
-	std::wcout << "[" << startTimeOfDay << "] <" << duration << "> " << appId << ": " << lpFocusAppName << std::endl;
+	std::wstring strAppName;
+	GetAppNameById(appId, strAppName);
+
+	std::wcout << "[" << startTimeOfDay << "] <" << duration << "> " << appId << ": " << strAppName << std::endl;
 }
 
 void AppRecorder::TrackIndex(uint32_t today) const
@@ -264,10 +281,10 @@ void AppRecorder::SaveApplicationInfo(const BSTR strName, const BSTR strPath, ui
 	}
 }
 
-uint16_t AppRecorder::GetCurrentApplicationId() const
+uint16_t AppRecorder::GetApplicationId(BSTR strAppName, BSTR strAppPath) const
 {
 	// get current app id from map
-	auto iter = mapApp.find(lpFocusAppPath);
+	auto iter = mapApp.find(strAppPath);
 	if (iter != mapApp.end())
 	{
 		return iter->second;
@@ -275,8 +292,8 @@ uint16_t AppRecorder::GetCurrentApplicationId() const
 	
 	// if not found, create new app id
 	currentMaxId++;
-	SaveApplicationInfo(lpFocusAppName, lpFocusAppPath, currentMaxId);
-	mapApp[lpFocusAppPath] = currentMaxId;
+	SaveApplicationInfo(strAppName, strAppPath, currentMaxId);
+	mapApp[strAppPath] = currentMaxId;
 	
 	return currentMaxId;
 }

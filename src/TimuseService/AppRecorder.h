@@ -14,7 +14,7 @@ private:
 	
 	uint32_t indexedDays = 0;
 	std::shared_ptr<std::chrono::system_clock::time_point> spFocusStartAt = nullptr;
-	BSTR lpFocusAppName = nullptr, lpFocusAppPath = nullptr;
+	uint16_t lastAppId = 0;
 
 	mutable std::unordered_map<std::wstring, uint16_t> mapApp;
 	mutable uint16_t currentMaxId = 0;
@@ -22,7 +22,8 @@ private:
 	void WriteRecord(uint32_t day, uint16_t appId, const std::chrono::system_clock::duration& startTimeOfDay, const std::chrono::system_clock::duration& duration) const;
 	void TrackIndex(uint32_t today) const;
 	void SaveApplicationInfo(const BSTR strName, const BSTR strPath, uint16_t id) const;
-	uint16_t GetCurrentApplicationId() const;
+	uint16_t GetApplicationId(BSTR strName, BSTR strPath) const;
+	bool GetAppNameById(uint16_t appId, std::wstring& appName) const;
 	
 	std::wstring GetUniString(const LPTSTR value, int cch);
 

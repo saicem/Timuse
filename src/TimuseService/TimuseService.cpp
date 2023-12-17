@@ -26,7 +26,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE, _In_ LPSTR lpCm
     winrt::init_apartment();
     spAppRecorder = std::make_shared<AppRecorder>();
 
-    // MediaListener mediaListener;
+    MediaListener mediaListener;
     
     errCode = InitializeApplicationListener();
     if (!IsSuccess(errCode)) return errCode;
@@ -67,7 +67,18 @@ TimuseErr InitializeApplicationListener()
     {
         return TimuseErr::OutOfMemory;
     }
-    pUIAutomation->AddFocusChangedEventHandler(NULL, pFocusHandler);
+    try
+    {
+        pUIAutomation->AddFocusChangedEventHandler(NULL, pFocusHandler);
+    }
+    catch (std::exception& ex)
+    {
+        std::cout << ex.what();
+    }
+    catch (...)
+    {
+        std::cout << "ex";
+    }
 
     return TimuseErr::Success;
 }
