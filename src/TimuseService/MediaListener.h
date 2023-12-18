@@ -5,13 +5,13 @@
 class MediaListener
 {
 public:
-	MediaListener() 
-	{
-		Initialize().get();
-	}
-	~MediaListener() = default;
-	winrt::Windows::Foundation::IAsyncAction Initialize();
+    MediaListener() 
+    {
+        Initialize().get();
+    }
+    ~MediaListener() = default;
+    winrt::Windows::Foundation::IAsyncAction Initialize();
 
 private:
-	winrt::Windows::Media::Control::GlobalSystemMediaTransportControlsSessionManager _sessionManager = nullptr;
+    winrt::Windows::Media::Control::GlobalSystemMediaTransportControlsSessionManager _sessionManager = nullptr;
 };

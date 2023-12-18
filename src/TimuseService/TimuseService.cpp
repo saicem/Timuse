@@ -48,9 +48,7 @@ void HandleFocusChangedEvent(BSTR lpName, BSTR lpPath)
 
 TimuseErr InitializeApplicationListener()
 {
-    HRESULT hr;
-    //hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
-    //if (FAILED(hr)) return TimuseErr::ComInitializeFailed;
+    HRESULT hr = 0;
 
     IUIAutomation* pUIAutomation;
     hr = InitializeUIAutomation(&pUIAutomation);
@@ -67,18 +65,8 @@ TimuseErr InitializeApplicationListener()
     {
         return TimuseErr::OutOfMemory;
     }
-    try
-    {
-        pUIAutomation->AddFocusChangedEventHandler(NULL, pFocusHandler);
-    }
-    catch (std::exception& ex)
-    {
-        std::cout << ex.what();
-    }
-    catch (...)
-    {
-        std::cout << "ex";
-    }
+
+    pUIAutomation->AddFocusChangedEventHandler(NULL, pFocusHandler);
 
     return TimuseErr::Success;
 }
