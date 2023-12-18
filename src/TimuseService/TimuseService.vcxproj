@@ -166,6 +166,7 @@
     <ClInclude Include="BinaryHelper.h" />
     <ClInclude Include="MediaListener.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="TimuseConf.h" />
     <ClInclude Include="TimuseErr.h" />
     <ClInclude Include="UIAutomationFocusChangedEventHandler.h" />
   </ItemGroup>
