@@ -13,13 +13,13 @@ private:
 	HANDLE hIndexFile;
 	
 	uint32_t indexedDays = 0;
-	std::shared_ptr<std::chrono::system_clock::time_point> spFocusStartAt = nullptr;
+	std::shared_ptr<std::chrono::utc_clock::time_point> spFocusStartAt = nullptr;
 	uint16_t lastAppId = 0;
 
 	mutable std::unordered_map<std::wstring, uint16_t> mapApp;
 	mutable uint16_t currentMaxId = 0;
 
-	void WriteRecord(uint32_t day, uint16_t appId, const std::chrono::system_clock::duration& startTimeOfDay, const std::chrono::system_clock::duration& duration) const;
+	void WriteRecord(uint32_t day, uint16_t appId, const std::chrono::utc_clock::duration& startTimeOfDay, const std::chrono::utc_clock::duration& duration) const;
 	void TrackIndex(uint32_t today) const;
 	void SaveApplicationInfo(const BSTR strName, const BSTR strPath, uint16_t id) const;
 	uint16_t GetApplicationId(BSTR strName, BSTR strPath) const;

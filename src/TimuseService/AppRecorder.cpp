@@ -1,7 +1,9 @@
 #include "AppRecorder.h"
 #include "BinaryHelper.h"
+#include <sstream>
+#define _CRT_SECURE_NO_WARNINGS
 
-std::chrono::system_clock::duration GetDurationSinceZeroClock(const std::chrono::system_clock::time_point& time)
+std::chrono::utc_clock::duration GetDurationSinceZeroClock(const std::chrono::utc_clock::time_point& time)
 {
 	auto duration = time.time_since_epoch();
 	auto durationMs = std::chrono::duration_cast<std::chrono::milliseconds>(duration);
@@ -124,7 +126,7 @@ AppRecorder::AppRecorder()
 	if (sizeIndexFile == 0)
 	{
 		// get current utc time with chrono
-		auto now = std::chrono::system_clock::now();
+		auto now = std::chrono::utc_clock::now();
 		// get total days since epoch
 		indexedDays = (uint32_t)(std::chrono::duration_cast<std::chrono::hours>(now.time_since_epoch()).count() / 24);
 		// write days to index file
@@ -177,7 +179,7 @@ bool AppRecorder::GetAppNameById(uint16_t appId, std::wstring& appName) const
 
 void AppRecorder::Switch(BSTR strName, BSTR strPath)
 {
-	auto now = std::chrono::system_clock::now();
+	auto now = std::chrono::utc_clock::now();
 
 	if (strName == nullptr || strPath == nullptr)
 	{
@@ -207,14 +209,20 @@ void AppRecorder::Switch(BSTR strName, BSTR strPath)
 			}
 			WriteRecord(endDays, lastAppId, std::chrono::milliseconds(0), endOfDay);
 		}
+
+		std::wstring strAppName;
+		GetAppNameById(lastAppId, strAppName);
+
+		std::cout << "[" << std::format("{0:%T}", std::chrono::utc_clock::to_sys(*spFocusStartAt)) << "] ";
+		std::wcout << "<" << std::chrono::duration_cast<std::chrono::seconds>(now - *spFocusStartAt).count() << "s> "
+			<< lastAppId << ": " << strAppName << std::endl;
 	}
 
 	lastAppId = id;
-
-	spFocusStartAt = std::make_shared<std::chrono::system_clock::time_point>(now);
+	spFocusStartAt = std::make_shared<std::chrono::utc_clock::time_point>(now);
 }
 
-void AppRecorder::WriteRecord(uint32_t day, uint16_t appId, const std::chrono::system_clock::duration& startTimeOfDay, const std::chrono::system_clock::duration& duration) const
+void AppRecorder::WriteRecord(uint32_t day, uint16_t appId, const std::chrono::utc_clock::duration& startTimeOfDay, const std::chrono::utc_clock::duration& duration) const
 {
 	if (hRecordFile == INVALID_HANDLE_VALUE)
 	{
@@ -243,11 +251,6 @@ void AppRecorder::WriteRecord(uint32_t day, uint16_t appId, const std::chrono::s
 	{
 		throw std::exception("Failed to flush record file");
 	}
-
-	std::wstring strAppName;
-	GetAppNameById(appId, strAppName);
-
-	std::wcout << "[" << startTimeOfDay << "] <" << duration << "> " << appId << ": " << strAppName << std::endl;
 }
 
 void AppRecorder::TrackIndex(uint32_t today) const
