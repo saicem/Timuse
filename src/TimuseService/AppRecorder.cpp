@@ -85,12 +85,12 @@ void AppRecorder::WriteRecord(uint32_t day, uint16_t appId, const std::chrono::u
 
     TrackIndex(day);
 
-    // get total ms count of startTimeOfDay
-    auto startMs = (uint32_t)std::chrono::duration_cast<std::chrono::milliseconds>(startTimeOfDay).count();
-    // get total ms count of duration
-    auto durationMs = (uint32_t)std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
+    // get total tick count of startTimeOfDay
+    auto startTicks = (uint32_t)std::chrono::duration_cast<record_tick_unit_t>(startTimeOfDay).count();
+    // get total tick count of duration
+    auto durationTicks = (uint32_t)std::chrono::duration_cast<record_tick_unit_t>(duration).count();
 
-    ApplicationRecord record(appId, startMs, durationMs);
+    ApplicationRecord record(appId, startTicks, durationTicks);
 
     DWORD bytesWritten = 0;
     auto success = WriteFile(hRecordFile, &record, sizeof(ApplicationRecord), &bytesWritten, NULL);

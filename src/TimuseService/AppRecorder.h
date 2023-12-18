@@ -1,4 +1,8 @@
 #pragma once
+
+// 1/100 second 
+typedef std::chrono::duration<int64_t, std::centi> record_tick_unit_t;
+
 class AppRecorder
 {
 public:
@@ -11,7 +15,6 @@ private:
     HANDLE hRecordFile;
     HANDLE hMapFile;
     HANDLE hIndexFile;
-    
     
     std::shared_ptr<std::chrono::utc_clock::time_point> spFocusStartAt = nullptr;
     uint16_t lastAppId = 0;
