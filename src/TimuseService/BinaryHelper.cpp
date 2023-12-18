@@ -1,9 +1,10 @@
 #include "BinaryHelper.h"
 
-int32_t BinaryHelper::Read7BitEncodedInt()
+int32_t BinaryHelper::Read7BitEncodedInt(int& cb)
 {
 	int32_t value = 0;
 	int shift = 0;
+	cb = 0;
 	byte b;
 	do
 	{
@@ -14,6 +15,7 @@ int32_t BinaryHelper::Read7BitEncodedInt()
 		}
 		value |= (b & 0x7F) << shift;
 		shift += 7;
+		cb++;
 	} while ((b & 0x80) != 0);
 	return value;
 }
@@ -30,9 +32,10 @@ uint16_t BinaryHelper::ReadUInt16()
 	return value;
 }
 
-void BinaryHelper::ReadCchString(LPTSTR buffer, int cch)
+void BinaryHelper::ReadCchString(LPTSTR buffer, int cch, int& cb)
 {
-	auto strLength = Read7BitEncodedInt();
+	cb = 0;
+	auto strLength = Read7BitEncodedInt(cb);
 	if (strLength >= cch)
 	{
 		throw std::exception("String too long");
@@ -44,6 +47,8 @@ void BinaryHelper::ReadCchString(LPTSTR buffer, int cch)
 	// append null terminator
 	auto charRead = bytesRead / sizeof(TCHAR);
 	buffer[charRead] = 0;
+
+	cb += bytesRead;
 
 	if (!success)
 	{

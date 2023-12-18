@@ -146,7 +146,8 @@
       <AdditionalDependencies>version.lib;Shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>dotnet publish ..\TimuseService.Lib\TimuseService.Lib.csproj -f net8.0 --self-contained true -r win-x64 -c Release -o $(OutputPath)</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

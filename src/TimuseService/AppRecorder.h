@@ -12,10 +12,11 @@ private:
 	HANDLE hMapFile;
 	HANDLE hIndexFile;
 	
-	uint32_t indexedDays = 0;
+	
 	std::shared_ptr<std::chrono::utc_clock::time_point> spFocusStartAt = nullptr;
 	uint16_t lastAppId = 0;
 
+	mutable uint32_t indexedDays = 0;
 	mutable std::unordered_map<std::wstring, uint16_t> mapApp;
 	mutable uint16_t currentMaxId = 0;
 
@@ -27,6 +28,13 @@ private:
 	
 	std::wstring GetUniString(const LPTSTR value, int cch);
 
+private:
+	std::wstring CreateAppDataPath() const;
+	bool InitializeAppMap(const std::wstring& strAppData);
+	bool InitializeRecordFile(const std::wstring& strAppData);
+	bool InitializeIndexFile(const std::wstring& strAppData);
+
+private:
 	struct ApplicationRecord
 	{
 	public:
