@@ -55,5 +55,8 @@
     <ClInclude Include="BinaryHelper.h">
       <Filter>util</Filter>
     </ClInclude>
+    <ClInclude Include="TimuseConf.h">
+      <Filter>def</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

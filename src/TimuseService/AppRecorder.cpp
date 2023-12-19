@@ -14,6 +14,8 @@ AppRecorder::AppRecorder()
     // get appdata path
     auto strAppData = CreateAppDataPath();
 
+    spConfig = std::make_shared<Timuse::Config>(strAppData);
+
     // initialize app map
     InitializeAppMap(strAppData);
 
@@ -41,6 +43,8 @@ void AppRecorder::Switch(BSTR strName, BSTR strPath)
     }
 
     auto id = GetApplicationId(strName, strPath);
+    std::wstring strAppName;
+    GetAppNameById(lastAppId, strAppName);
 
     if (lastAppId != 0)
     {
@@ -63,9 +67,6 @@ void AppRecorder::Switch(BSTR strName, BSTR strPath)
             }
             WriteRecord(endDays, lastAppId, std::chrono::milliseconds(0), endOfDay);
         }
-
-        std::wstring strAppName;
-        GetAppNameById(lastAppId, strAppName);
 
         std::cout << "[" << std::format("{0:%T}", std::chrono::utc_clock::to_sys(*spFocusStartAt)) << "] ";
         std::wcout << "<" << std::chrono::duration_cast<std::chrono::seconds>(now - *spFocusStartAt).count() << "s> "

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "TimuseConf.h"
+
 // 1/100 second 
 typedef std::chrono::duration<int64_t, std::centi> record_tick_unit_t;
 
@@ -16,6 +18,7 @@ private:
     HANDLE hMapFile;
     HANDLE hIndexFile;
     
+    std::shared_ptr<Timuse::Config> spConfig = nullptr;
     std::shared_ptr<std::chrono::utc_clock::time_point> spFocusStartAt = nullptr;
     uint16_t lastAppId = 0;
 

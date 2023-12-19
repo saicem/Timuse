@@ -24,9 +24,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE, _In_ LPSTR lpCm
     }
 
     winrt::init_apartment();
-    spAppRecorder = std::make_shared<AppRecorder>();
 
-    MediaListener mediaListener;
+    // MediaListener mediaListener;
+    spAppRecorder = std::make_shared<AppRecorder>();    
     
     errCode = InitializeApplicationListener();
     if (!IsSuccess(errCode)) return errCode;
