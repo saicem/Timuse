@@ -1,0 +1,9 @@
+﻿<h:HostedApp x:Class="Timuse.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:h="clr-namespace:Timuse.Host"
+             xmlns:local="clr-namespace:Timuse">
+    <Application.Resources>
+         
+    </Application.Resources>
+</h:HostedApp>
