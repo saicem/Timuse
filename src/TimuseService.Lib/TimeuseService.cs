@@ -19,7 +19,7 @@ public static class TimeuseService
     private static readonly string pathRecord = Path.Combine(basePath, "record.bin");
     private static readonly string pathIndex = Path.Combine(basePath, "index.bin");
     private static TimeSpan DayTimeSpan = new(TimeSpan.TicksPerDay);
-
+    
     [UnmanagedCallersOnly(EntryPoint = nameof(InitService))]
     public static void InitService()
     {
