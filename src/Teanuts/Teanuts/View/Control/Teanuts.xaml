@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="Teanuts.View.Control.Teanuts"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Teanuts.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    
+    <Viewbox>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="48"/>
+            </Grid.ColumnDefinitions>
+            <Ellipse Stroke="#809380" StrokeThickness="10" Width="464" Height="464">
+                <Ellipse.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FFCEE2D3" Offset="1"/>
+                        <GradientStop Color="#00CEE2D3" Offset="0.5"/>
+                    </RadialGradientBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+            <Border Grid.ColumnSpan="2" Width="256" Height="56" 
+                CornerRadius="28" BorderThickness="8" BorderBrush="#809380"
+                HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Border.Background>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FFD3E4E4" Offset="1"/>
+                        <GradientStop Color="#FFECF7FD" Offset="0.6"/>
+                    </RadialGradientBrush>
+                </Border.Background>
+            </Border>
+            <Ellipse Stroke="#809380" StrokeThickness="8" Fill="#FFE0E8E0" Width="324" Height="324"/>
+            <Ellipse Stroke="#809380" StrokeThickness="6" Width="244" Height="244">
+                <Ellipse.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#FF07AA4F" Offset="1"/>
+                        <GradientStop Color="#FF61BC6C" Offset="0.6"/>
+                        <GradientStop Color="#FF61BC6C" Offset="0"/>
+                    </RadialGradientBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+        </Grid>
+    </Viewbox>
+</UserControl>

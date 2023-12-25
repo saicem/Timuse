@@ -11,7 +11,7 @@ namespace Teanuts.Host;
 internal static partial class ApplicationHost
 {
     [LibraryImport("Microsoft.ui.xaml.dll")]
-    private static partial void XamlCheckProcessRequirements();
+    internal static partial void XamlCheckProcessRequirements();
 
     public static IHost Build<TApplication, TMainWindow>(string[] args, Action<IHostBuilder> configureHostBuilder)
         where TApplication : Application
@@ -26,15 +26,6 @@ internal static partial class ApplicationHost
         });
 
         configureHostBuilder?.Invoke(hostBuilder);
-
-        if (Thread.CurrentThread.GetApartmentState() != ApartmentState.STA)
-        {
-            Thread.CurrentThread.SetApartmentState(ApartmentState.Unknown);
-            Thread.CurrentThread.SetApartmentState(ApartmentState.STA);
-        }
-
-        XamlCheckProcessRequirements();
-        ComWrappersSupport.InitializeComWrappers();
 
         var host = hostBuilder.Build();
         return host;

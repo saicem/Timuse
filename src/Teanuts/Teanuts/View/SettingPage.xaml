@@ -6,10 +6,20 @@
     xmlns:local="using:Teanuts.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    xmlns:control="using:Teanuts.View.Control"
+    mc:Ignorable="d">
 
     <Grid>
+        <TextBlock Style="{ThemeResource TitleTextBlockStyle}">设置</TextBlock>
+        <StackPanel>
+            <!--<Grid Background="{ThemeResource LayerFillColorDefaultBrush }"
+              Width="300"
+              Height="240"/>
+            <Grid Background="{ThemeResource LayerOnMicaBaseAltFillColorDefaultBrush}"
+              Width="300"
+              Height="240"/>-->
+            <control:Teanuts x:Name="x48x48" Width="512" Height="512"/>
+        </StackPanel>
 
     </Grid>
 </Page>

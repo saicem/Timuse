@@ -16,11 +16,18 @@
 	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Style\Color.xaml" />
     <None Remove="Style\FontStyle.xaml" />
+    <None Remove="View\CatalogPage.xaml" />
+    <None Remove="View\FragmentPage.xaml" />
+    <None Remove="View\OverviewPage.xaml" />
     <None Remove="View\SettingPage.xaml" />
+    <None Remove="View\Teanuts.xaml" />
+    <None Remove="View\TimeLinePage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.Layout" Version="7.1.2" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.230913002" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
 	<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
@@ -36,6 +43,42 @@
 
   <ItemGroup>
     <Page Update="View\SettingPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="View\CatalogPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="View\FragmentPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="View\TimeLinePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="View\OverviewPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="View\Teanuts.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Style\Color.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
