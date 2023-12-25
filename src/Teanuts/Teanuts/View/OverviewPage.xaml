@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:tnvmc="using:Teanuts.ViewModel.Control"
+    xmlns:tnc="using:Teanuts.View.Control"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -25,155 +25,44 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Border Background="{ThemeResource LayerFillColorDefaultBrush}"
-                        CornerRadius="8"
-                        BorderThickness="1"
-                        Margin="0,0,16,0"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
-                    <Grid HorizontalAlignment="Stretch"
-                          VerticalAlignment="Stretch"
-                          Margin="16,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Border Width="48" Height="48"
-                                Padding="8"
-                                Background="{ThemeResource SystemAccentColor}"
-                                CornerRadius="4">
-                            <Viewbox>
-                                <SymbolIcon Symbol="AllApps" Opacity="0.8">
-                                    <SymbolIcon.RenderTransform>
-                                        <TranslateTransform Y="1"/>
-                                    </SymbolIcon.RenderTransform>
-                                </SymbolIcon>
-                            </Viewbox>
-                        </Border>
-                        <StackPanel Margin="16,0,0,0" VerticalAlignment="Center" Grid.Column="1">
-                            <TextBlock FontSize="16">今日应用</TextBlock>
-                            <StackPanel Margin="0,8,0,0" Orientation="Horizontal">
-                                <TextBlock Style="{ThemeResource BodyStrongTextBlockStyle}">18个</TextBlock>
-                                <TextBlock Style="{ThemeResource BodyStrongTextBlockStyle}"
-                                           Margin="8,0,0,0">(+3)</TextBlock>
-                            </StackPanel>
-                        </StackPanel>
-                    </Grid>
-                </Border>
-                <Border Grid.Column="1" Background="{ThemeResource LayerFillColorDefaultBrush}"
-                        CornerRadius="8"
-                        BorderThickness="1"
-                        Margin="8,0"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
-                    <Grid HorizontalAlignment="Stretch"
-                          VerticalAlignment="Stretch"
-                          Margin="16,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Border Width="48" Height="48"
-                                Padding="8"
-                                Background="{ThemeResource SystemAccentColor}"
-                                CornerRadius="4">
-                            <Viewbox>
-                                <SymbolIcon Symbol="Clock" Opacity="0.8"/>
-                            </Viewbox>
-                        </Border>
-                        <StackPanel Margin="16,0,0,0" VerticalAlignment="Center" Grid.Column="1">
-                            <TextBlock FontSize="16">今日时长</TextBlock>
-                            <StackPanel Margin="0,8,0,0" Orientation="Horizontal">
-                                <TextBlock Style="{ThemeResource BodyStrongTextBlockStyle}">15h 38min</TextBlock>
-                                <TextBlock Style="{ThemeResource BodyStrongTextBlockStyle}"
-                                           Margin="8,0,0,0">(+10h 22min)</TextBlock>
-                            </StackPanel>
-                        </StackPanel>
-                    </Grid>
-                </Border>
-                <Border Grid.Column="2" Background="{ThemeResource LayerFillColorDefaultBrush}"
-                        CornerRadius="8"
-                        BorderThickness="1"
-                        Margin="16,0,0,0"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
-                    <Grid HorizontalAlignment="Stretch"
-                          VerticalAlignment="Stretch"
-                          Margin="16,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Border Width="48" Height="48"
-                                Padding="8"
-                                Background="{ThemeResource SystemAccentColor}"
-                                CornerRadius="4">
-                            <Viewbox>
-                                <SymbolIcon Symbol="Pin" Opacity="0.8" RenderTransformOrigin="0.5,0.5">
-                                    <SymbolIcon.RenderTransform>
-                                        <TransformGroup>
-                                            <RotateTransform Angle="-45"/>
-                                            <TranslateTransform Y="2"/>
-                                        </TransformGroup>
-                                    </SymbolIcon.RenderTransform>
-                                </SymbolIcon>
-                            </Viewbox>
-                        </Border>
-                        <StackPanel Margin="16,0,0,0" VerticalAlignment="Center" Grid.Column="1">
-                            <TextBlock FontSize="16">今日使用最久</TextBlock>
-                            <StackPanel Margin="0,8,0,0" Orientation="Horizontal">
-                                <TextBlock Style="{ThemeResource BodyStrongTextBlockStyle}">Visual Studio</TextBlock>
-                                <TextBlock Style="{ThemeResource BodyStrongTextBlockStyle}"
-                       Margin="8,0,0,0">(10h 22min)</TextBlock>
-                            </StackPanel>
-                        </StackPanel>
-                    </Grid>
-                </Border>
+                <tnc:OverviewCard Margin="0,0,16,0"
+                                  Title="今日应用"
+                                  Text="18个"
+                                  Description="(+3)">
+                    <tnc:OverviewCard.Icon>
+                        <SymbolIcon Symbol="AllApps"/>
+                    </tnc:OverviewCard.Icon>
+                </tnc:OverviewCard>
+                <tnc:OverviewCard Margin="8,0,8,0"
+                                  Title="今日时长"
+                                  Text="15h 38m"
+                                  Description="(+10h 22m)"
+                                  Grid.Column="1">
+                    <tnc:OverviewCard.Icon>
+                        <SymbolIcon Symbol="Clock"/>
+                    </tnc:OverviewCard.Icon>
+                </tnc:OverviewCard>
+                <tnc:OverviewCard Margin="16,0,0,0"
+                                  Title="今日使用最久"
+                                  Text="Visual Studio"
+                                  Description="(10h 22m)"
+                                  Grid.Column="2">
+                    <tnc:OverviewCard.Icon>
+                        <SymbolIcon Symbol="Pin"/>
+                    </tnc:OverviewCard.Icon>
+                </tnc:OverviewCard>
             </Grid>
             <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Margin="0,16,0,0">今日活动</TextBlock>
         </StackPanel>
 
-        <Border Background="{ThemeResource LayerFillColorDefaultBrush}"
+        <Border Background="{ThemeResource LayerFillColorAltBrush}"
                 Margin="0,16,0,0"
                 CornerRadius="8"
                 BorderThickness="1"
                 Grid.Row="1"
                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}">
             <ItemsView x:Name="DailyItemsView" ItemsSource="{x:Bind DailyItemsCVS.View, Mode=OneWay}"
-                       SelectionMode="None">
-                <ItemsView.ItemTemplate>
-                    <DataTemplate x:DataType="tnvmc:AppicationUsage">
-                        <ItemContainer HorizontalAlignment="Stretch">
-                            <Grid Margin="16" MinWidth="300">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <Border Grid.RowSpan="2" Margin="0,0,16,0" Width="48" Height="48"
-                            CornerRadius="4"
-                            Background="{ThemeResource SystemAccentColor}"/>
-                                <TextBlock Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,4"
-                               Style="{ThemeResource BodyStrongTextBlockStyle}"
-                               Text="{x:Bind Name}"/>
-                                <TextBlock Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,4"
-                                               Style="{ThemeResource BaseTextBlockStyle}"
-                                               Text="{x:Bind Duration,Converter={StaticResource TimeSpanToHourMinConverter}}"
-                                               HorizontalAlignment="Right"/>
-                                <Border x:Name="BarContainer" Grid.Column="1" Grid.Row="1" Height="8" 
-                                        Margin="0,0,0,4"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Bottom"
-                                        CornerRadius="4">
-                                    <Border HorizontalAlignment="Stretch" Background="{ThemeResource SystemAccentColor}"
-                                                RenderTransform="{x:Bind Duration, Converter={StaticResource TimeSpanToRatioTransformConverter}}">
-                                    </Border>
-                                </Border>
-                            </Grid>
-                        </ItemContainer>
-                    </DataTemplate>
-                </ItemsView.ItemTemplate>
-            </ItemsView>
+                       SelectionMode="None" ItemTemplate="{StaticResource ApplicationUsageItemWithBar}"/>
         </Border>
     </Grid>
 </Page>
