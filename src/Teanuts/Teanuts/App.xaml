@@ -11,6 +11,7 @@
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
                 <ResourceDictionary Source="ms-appx:///Style/FontStyle.xaml" />
                 <ResourceDictionary Source="ms-appx:///Style/Color.xaml"/>
+                <ResourceDictionary Source="ms-appx:///Style/ApplicationUsageItem.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <convert:TimeSpanToHourMinConverter x:Key="TimeSpanToHourMinConverter"/>
             <convert:TimeSpanToRatioTransformConverter x:Key="TimeSpanToRatioTransformConverter"/>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <DataTemplate x:Key="ApplicationUsageItemWithBar">
+        <ItemContainer HorizontalAlignment="Stretch">
+            <Grid Margin="16" MinWidth="300">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Border Grid.RowSpan="2" Margin="0,0,16,0" Width="48" Height="48"
+                        CornerRadius="4"
+                        Background="{ThemeResource SystemAccentColor}"/>
+                <TextBlock Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,4"
+                           Style="{ThemeResource BodyStrongTextBlockStyle}"
+                           Text="{Binding Name}"/>
+                <TextBlock Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,4"
+                           Style="{ThemeResource BaseTextBlockStyle}"
+                           Text="{Binding Duration,Converter={StaticResource TimeSpanToHourMinConverter}}"
+                           HorizontalAlignment="Right"/>
+                <Border x:Name="BarContainer" Grid.Column="1" Grid.Row="1" Height="8" 
+                        Margin="0,0,0,4"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Bottom"
+                        CornerRadius="4">
+                    <Border HorizontalAlignment="Stretch" Background="{ThemeResource SystemAccentColor}"
+                            RenderTransform="{Binding Duration, Converter={StaticResource TimeSpanToRatioTransformConverter}}">
+                    </Border>
+                </Border>
+            </Grid>
+        </ItemContainer>
+    </DataTemplate>
+
+</ResourceDictionary>
