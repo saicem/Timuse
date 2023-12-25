@@ -20,14 +20,14 @@ public sealed partial class MainWindow : Window
 
         this.ExtendsContentIntoTitleBar = true;
 
+        this.Closed += (s, e) => applicationLifetime.StopApplication();
         AppTitleBar.Loaded += this.OnAppTitleBarLoaded;
         AppNavigationView.Loaded += this.OnAppNavigationViewLoaded;
 
-        this.Closed += (s, e) =>
+        if(!this.TrySetMicaBackdrop(useMicaAlt: true))
         {
-            applicationLifetime.StopApplication();
-        };
-        this.TrySetMicaBackdrop(useMicaAlt: true);
+            this.TrySetDesktopAcrylicBackdrop();
+        }
     }
 
     private static Dictionary<string, (Type PageType, string NavigationParamter)> NavigationMap = new()

@@ -3,6 +3,7 @@
     x:Class="Teanuts.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:convert="using:Teanuts.Converter"
     xmlns:local="using:Teanuts">
     <Application.Resources>
         <ResourceDictionary>
@@ -11,7 +12,8 @@
                 <ResourceDictionary Source="ms-appx:///Style/FontStyle.xaml" />
                 <ResourceDictionary Source="ms-appx:///Style/Color.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <!-- Other app resources here -->
+            <convert:TimeSpanToHourMinConverter x:Key="TimeSpanToHourMinConverter"/>
+            <convert:TimeSpanToRatioTransformConverter x:Key="TimeSpanToRatioTransformConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

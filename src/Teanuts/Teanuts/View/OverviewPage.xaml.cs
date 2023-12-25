@@ -1,31 +1,34 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using System;
+using System.Collections.ObjectModel;
+using Teanuts.ViewModel.Control;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+namespace Teanuts.View;
 
-namespace Teanuts.View
+public sealed partial class OverviewPage : Page
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class OverviewPage : Page
+    public OverviewPage()
     {
-        public OverviewPage()
-        {
-            this.InitializeComponent();
-        }
+        this.InitializeComponent();
     }
+
+    protected override void OnNavigatedTo(NavigationEventArgs e)
+    {
+        DayItems.Add(new AppicationUsage { Name = "Visual Studio", Duration = TimeSpan.FromMinutes(30) });
+        DayItems.Add(new AppicationUsage { Name = "Firefox", Duration = TimeSpan.FromMinutes(134) });
+        DayItems.Add(new AppicationUsage { Name = "Microsoft Edge", Duration = TimeSpan.FromMinutes(20) });
+        DayItems.Add(new AppicationUsage { Name = "Chrome", Duration = TimeSpan.FromMinutes(20) });
+        DayItems.Add(new AppicationUsage { Name = "Microsoft Word", Duration = TimeSpan.FromMinutes(20) });
+        DayItems.Add(new AppicationUsage { Name = "Microsoft Excel", Duration = TimeSpan.FromMinutes(20) });
+        DayItems.Add(new AppicationUsage { Name = "Microsoft PowerPoint", Duration = TimeSpan.FromMinutes(20) });
+        DayItems.Add(new AppicationUsage { Name = "Microsoft Teams", Duration = TimeSpan.FromMinutes(20) });
+        DayItems.Add(new AppicationUsage { Name = "Microsoft Outlook", Duration = TimeSpan.FromMinutes(20) });
+        DayItems.Add(new AppicationUsage { Name = "Microsoft OneNote", Duration = TimeSpan.FromMinutes(20) });
+        DayItems.Add(new AppicationUsage { Name = "Microsoft OneDrive", Duration = TimeSpan.FromMinutes(20) });
+        DayItems.Add(new AppicationUsage { Name = "Visual Studio Code", Duration = TimeSpan.FromMinutes(20) });
+        DailyItemsCVS.Source = DayItems;
+    }
+
+    public ObservableCollection<AppicationUsage> DayItems { get; } = [];
 }

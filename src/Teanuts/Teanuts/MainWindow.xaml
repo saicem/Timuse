@@ -10,12 +10,12 @@
     Title="Teanuts">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="48"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid x:Name="AppTitleBar"
             Background="{ThemeResource LayerOnMicaBaseAltFillColorDefault}"
-            Height="48" 
+            Height="40" 
             VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="LeftHeader" Width="188"/>
@@ -42,7 +42,8 @@
             
             <TabView x:Name="AppTabView" 
                 Grid.Column="1"
-                IsAddTabButtonVisible="False">
+                IsAddTabButtonVisible="False"
+                VerticalAlignment="Bottom">
                 <TabViewItem x:Name="HomeTab">
                     <TabViewItem.IconSource>
                         <SymbolIconSource Symbol="Document"/>
