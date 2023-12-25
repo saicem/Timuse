@@ -5,13 +5,16 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    xmlns:control="using:Teanuts.View.Control"
+    mc:Ignorable="d"
+    Title="Teanuts">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="48"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid x:Name="AppTitleBar"
+            Background="{ThemeResource LayerOnMicaBaseAltFillColorDefault}"
             Height="48" 
             VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
@@ -25,9 +28,8 @@
                     <ColumnDefinition x:Name="IconColumn" Width="Auto"/>
                     <ColumnDefinition x:Name="TitleColumn" Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Grid x:Name="TitleBarIcon"
+                <control:Teanuts x:Name="TitleBarIcon"
                     Grid.Column="1"
-                    Background="Red"
                     Width="16" Height="16"
                     Margin="16,0,16,0"/>
                 <TextBlock
@@ -41,12 +43,7 @@
             <TabView x:Name="AppTabView" 
                 Grid.Column="1"
                 IsAddTabButtonVisible="False">
-                <TabViewItem Header="Home">
-                    <TabViewItem.IconSource>
-                        <SymbolIconSource Symbol="Document"/>
-                    </TabViewItem.IconSource>
-                </TabViewItem>
-                <TabViewItem Header="About">
+                <TabViewItem x:Name="HomeTab">
                     <TabViewItem.IconSource>
                         <SymbolIconSource Symbol="Document"/>
                     </TabViewItem.IconSource>
@@ -59,23 +56,19 @@
                 </TabView.TabStripFooter>
             </TabView>
         </Grid>
-        <NavigationView 
+        <NavigationView x:Name="AppNavigationView"
+            Background="{ThemeResource LayerOnMicaBaseAltFillColorDefault}"
             Grid.Row="1"
-            Margin="0,-8,0,0"
+            Margin="0,0,0,0"
             OpenPaneLength="192"
             IsBackButtonVisible="Collapsed">
             <NavigationView.MenuItems>
-                <NavigationViewItem Content="概览" Icon="Home"/>
-                <NavigationViewItem Content="时间线" Icon="List"/>
-                <NavigationViewItem Content="碎片统计" Icon="GoToStart"/>
-                <NavigationViewItem Content="分类与标签" Icon="ViewAll"/>
+                <NavigationViewItem Content="概览" Icon="Home" Tag="Home"/>
+                <NavigationViewItem Content="时间线" Icon="List" Tag="TimeLine"/>
+                <NavigationViewItem Content="碎片统计" Icon="GoToStart" Tag="Fragment"/>
+                <NavigationViewItem Content="应用分类" Icon="ViewAll" Tag="Catalog"/>
             </NavigationView.MenuItems>
-            <Frame x:Name="contentFrame">
-                <Border CornerRadius="4">
-                    <WebView2 DefaultBackgroundColor="Transparent" x:Name="AppWebView"/>
-                </Border>
-                
-            </Frame>
+            <Frame x:Name="ContentFrame" Padding="32,24"/>
         </NavigationView>
     </Grid>
 </Window>

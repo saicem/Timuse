@@ -16,8 +16,14 @@
 	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Style\Color.xaml" />
     <None Remove="Style\FontStyle.xaml" />
+    <None Remove="View\CatalogPage.xaml" />
+    <None Remove="View\FragmentPage.xaml" />
+    <None Remove="View\OverviewPage.xaml" />
     <None Remove="View\SettingPage.xaml" />
+    <None Remove="View\Teanuts.xaml" />
+    <None Remove="View\TimeLinePage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,6 +42,46 @@
 
   <ItemGroup>
     <Page Update="View\SettingPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="View\Control\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="View\CatalogPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="View\FragmentPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="View\TimeLinePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="View\OverviewPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="View\Teanuts.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Style\Color.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
